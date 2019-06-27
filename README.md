@@ -1,5 +1,5 @@
 # Java
 ## 线程中止三种方法
-- thread.stop()
-- thread.interrupt();
-- 标志位 中止 flag = true/false
+- :book: thread.stop()
+- :book: thread.interrupt();
+- :book: 标志位中止 flag = true/false
