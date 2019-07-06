@@ -29,7 +29,7 @@ export function downloadFile(fileOrBlod,fileName){
                     '导出excel失败' +JSON.stringify(err);
                 })
 ~~~ 
-- 后端
+- 后端 Excel导出接口 采用poi组件
 ~~~ 后台
  response.reset();
  response.setCharacterEncoding("UTF-8");
