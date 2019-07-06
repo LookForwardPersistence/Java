@@ -1,1 +1,40 @@
+##flyio请求后端服务下载Excel文件，response返回乱码
+#### 请求时候必须带上 {responseType:'blob'}
 
+- 前端
+~~~ 前端
+export function exportAppointList(data) {
+    return request.post('/appoint/exportAppointList', data,{responseType:'blob'})
+}
+
+/*
+* 文件下载
+* 后台服务返回文件对象或blob文件对象时候需要调用此方法
+* Added by FQH in 2019-07-06
+* */
+export function downloadFile(fileOrBlod,fileName){
+    let url = window.URL.createObjectURL(fileOrBlod); //表示一个指定的file对象或Blob对象
+    let a = document.createElement("a");
+    document.body.appendChild(a);
+    a.href = url;
+    a.download = fileName; //命名下载名称
+    a.click(); //点击触发下载
+    window.URL.revokeObjectURL(url);  //下载完成进行释放
+}
+
+--页面调用
+ api.exportAppointList(参数).then(res => {
+                    downloadFile(res,"文件名称");
+                }).catch(err=>{
+                    '导出excel失败' +JSON.stringify(err);
+                })
+~~~ 
+- 后端
+~~~ 后台
+ response.reset();
+ response.setCharacterEncoding("UTF-8");
+ response.setContentType("application/vnd.ms-excel;charset=gb2312");
+ response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("文件名称.xls", "UTF-8"));
+ ....
+ workbook.write(response.getOutputStream());
+~~~
