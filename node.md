@@ -1,5 +1,5 @@
-##flyio请求后端服务下载Excel文件，response返回乱码
-#### 请求时候必须带上 {responseType:'blob'}
+## flyio请求后端服务下载Excel文件，response返回乱码
+- 请求时候必须带上 {responseType:'blob'}
 
 - 前端
 ~~~ 前端
