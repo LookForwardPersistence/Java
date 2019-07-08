@@ -38,3 +38,12 @@ export function downloadFile(fileOrBlod,fileName){
  ....
  workbook.write(response.getOutputStream());
 ~~~
+
+### 读取springboot框架下resource下文件
+- ClassPathResource
+~~~ 
+ ClassPathResource template= new ClassPathResource("文件路径");
+ example:
+ ClassPathResource template= new ClassPathResource("/asset/detail.xls");
+ 注意：linux引用路径：template.getFile().getPath()
+~~~
