@@ -1,5 +1,5 @@
 ### IOC(Inversion of controller)
-#### 手写实现
+#### 手写IOC
 ~~~ 
 /**
  * 1.实例化bean
