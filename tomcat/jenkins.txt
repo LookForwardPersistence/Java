@@ -4,3 +4,23 @@ C:\putty\pscp -pw 密码 dawn-dubbo-provider\target\dawn-dubbo-provider-1.0.0-SN
 C:\putty\plink 用名称@ip -pw 密码 -m "web\src\main\bin\deployDubbo.txt"
 C:\putty\pscp -pw 密码 web\target\dawn-web.war jenkins@10.108.5.106:/usr/local/jenkins/tomcat/apps/dawn/mywar
 C:\putty\plink 用户名@ip -pw 密码 /usr/local/jenkins/tomcat/apps/dawn/bin/start.sh "deploy"
+
+
+
+buildVue.bat
+
+@echo off
+rd /s /q 删除目录
+cd 前端项目跟目录
+call npm install
+call npm run build
+
+
+war.bat
+
+cd 容器目录
+./bin/stop.sh
+mkdir -p ./新增备份war文件名
+mv  ./新增备份war文件名/web.war ./新增备份war文件名/web-$(date +"%Y%m%d%H%M%S").war
+rm -rf ./webapps/项目文件夹
+
