@@ -1,0 +1,6 @@
+echo y | C:\putty\plink 用户名@ip -pw 密码 -m "web\src\main\bin\bakWar.txt"
+echo y | C:\putty\plink jenkins@10.108.5.106 -pw 密码 -m "dawn-web\src\main\bin\bakDubbo.txt"
+C:\putty\pscp -pw 密码 dawn-dubbo-provider\target\dawn-dubbo-provider-1.0.0-SNAPSHOT-assembly.tar.gz 用户名@ip:/usr/local/jenkins/dubbo
+C:\putty\plink 用名称@ip -pw 密码 -m "web\src\main\bin\deployDubbo.txt"
+C:\putty\pscp -pw 密码 web\target\dawn-web.war jenkins@10.108.5.106:/usr/local/jenkins/tomcat/apps/dawn/mywar
+C:\putty\plink 用户名@ip -pw 密码 /usr/local/jenkins/tomcat/apps/dawn/bin/start.sh "deploy"
