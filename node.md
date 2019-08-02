@@ -72,3 +72,23 @@ Step 4. Push the result of the merge to GitLab
 git push origin prd
 Tip: You can also checkout merge requests locally by following these guidelines.
 ~~~
+
+
+### java8 lambda
+- 过滤
+~~~ 
+List<PunchCardInfo> punchCardInfos ;
+ List<PunchCardInfo> infos = punchCardInfos.stream().filter(punchCardInfo -> punchCardInfo.getDateTime().equals(item.getDateTime())).collect(Collectors.toList());
+~~~ 
+
+- 分组统计
+~~~
+List<AbnormalAttendanceDTO> abnormalAttendanceDTOS
+Map<String,Long> counting= abnormalAttendanceDTOS.stream().collect(Collectors.groupingBy(AbnormalAttendanceDTO::getContent,Collectors.counting()));
+~~~
+
+- 分组
+~~~
+List<Zhrdk> result
+Map<String,List<Zhrdk>> groupByDateList=result.stream().collect(Collectors.groupingBy(Zhrdk::getZbegda));
+~~~
