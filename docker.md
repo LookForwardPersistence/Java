@@ -77,4 +77,8 @@ docker top web
 docker port web
 ~~~
 
-
+### 启动已经停止的服务
+- 启动容器 docker start IMAGE_NAME
+- 进入容器 docker attach IMAGE_NAME
+- 启动nginx：nginx
+- 查看映射端口： docker port IMAGE_NAME
