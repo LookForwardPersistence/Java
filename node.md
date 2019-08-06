@@ -92,3 +92,14 @@ Map<String,Long> counting= abnormalAttendanceDTOS.stream().collect(Collectors.gr
 List<Zhrdk> result
 Map<String,List<Zhrdk>> groupByDateList=result.stream().collect(Collectors.groupingBy(Zhrdk::getZbegda));
 ~~~
+
+- 排序（降序reversed()）
+~~~
+punchCardInfoDTOS.stream().sorted(Comparator.comparing(PunchCardInfoDTO::getDateTime).reversed()).collect(Collectors.toList());
+~~~
+
+- 排序 （升序）
+~~~
+punchCardInfoDTOS.stream().sorted(Comparator.comparing(PunchCardInfoDTO::getDateTime)).collect(Collectors.toList());
+~~~
+
