@@ -26,3 +26,9 @@
 ### 异常 Exception key=null  topic
 - kafka service.properties 配置 listenners 服务地址 zookeeper服务地址
 - 换一个topic
+
+
+
+### kafka-manage
+- 配置 conf/application.conf
+- 启动  bin/kafka-manager
