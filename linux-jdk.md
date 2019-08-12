@@ -7,8 +7,9 @@ wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-
 - vim /etc/profile
 - export JAVA_HOME=/usr/local/jdk export PATH=$PATH:$JAVA_HOME/bin
 ~~~
+#jdk
 export JAVA_HOME=/usr/local/jdk8
-export PATH=$PAHT:$JAVA_HOME/bin
+export PATH=$PATH:$JAVA_HOME/bin
 export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
 ~~~
 - source /etc/profile
