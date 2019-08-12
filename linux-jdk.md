@@ -18,3 +18,6 @@ export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
 ### linux 卸载 jdk
 - 查看jdk版本 rpm -qa|grep jdk
 - 卸载  rpm -e --nodeps jdk版本（jdk-1.7.0_80-fcs.x86_64）
+
+### 添加行号
+- vim 文件名称->输入“：”->set number
