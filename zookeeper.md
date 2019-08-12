@@ -16,6 +16,10 @@ bin/zkServer.sh start
 ~~~
 bin/zkServer.sh stop
 ~~~
+- 重启zookeeper
+~~~
+bin/zkServer.sh restart
+~~~
 - 查看状态
 ~~~
 bin/zkServer.sh status
