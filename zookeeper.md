@@ -25,6 +25,7 @@ bin/zkServer.sh restart
 bin/zkServer.sh status
 ~~~
 
+### 查看linux经常 jps
 
 
 ### kakfa/conf/server.properies说明
