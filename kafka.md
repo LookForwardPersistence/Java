@@ -4,6 +4,8 @@
 ### 启动kafka Broker
 - bin/kafka-server-start.sh config/server.properties
 
+### 守护进程daemon 方式
+- bin/kafka-server-start.sh -daemon config/server.properties
 ### 单节点-单代理配置：
 ### 创建主题
 - bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic topic-name
