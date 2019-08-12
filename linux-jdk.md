@@ -7,3 +7,8 @@ wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-
 - vim /etc/profile
 - export JAVA_HOME=/usr/local/jdk export PATH=$PATH:$JAVA_HOME/bin
 - source /etc/profile
+
+
+### linux 卸载 jdk
+- 查看jdk版本 rpm -qa|grep jdk
+- 卸载  rpm -e --nodeps jdk版本（jdk-1.7.0_80-fcs.x86_64）
