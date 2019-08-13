@@ -26,3 +26,6 @@
 > sh bin/mqshutdown broker
 > sh bin/mqshutdown namesrv
 ~~~
+
+
+### 可视化管理
