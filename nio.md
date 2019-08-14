@@ -82,17 +82,17 @@ public class DawnNioHttpServer {
         // 获取一个选择器
         // 底层的事件通知机制
         // 老板娘 selector
-        TonyNioHttpServer.selector = Selector.open();
+        DawnNioHttpServer.selector = Selector.open();
 
         // 登记： 表示对这个通道上OP_ACCEPT事件感兴趣，并且返回一个标记
         // 此处表示，希望收到socket通道8080端口上建立连接这个通知
-        SelectionKey selectionKey = socketChannel.register(TonyNioHttpServer.selector, 0);
+        SelectionKey selectionKey = socketChannel.register(DawnNioHttpServer.selector, 0);
         selectionKey.interestOps(selectionKey.OP_ACCEPT);
         
         while (true) { // 带几个美女，坐在大厅
 
             // 如果没有新的socket与服务器有连接或者是数据交互，这里就会等待1秒
-            TonyNioHttpServer.selector.select(1000);
+            DawnNioHttpServer.selector.select(1000);
 
             // 开始处理
             Set<SelectionKey> selected = DawnNioHttpServer.selector.selectedKeys();
@@ -135,7 +135,7 @@ public class DawnNioHttpServer {
                             // 随意返回，不是Http的协议
                             byteBuffer.clear();
                             ByteBuffer wrap = ByteBuffer
-                                    .wrap(("tony" + System.currentTimeMillis()).getBytes());
+                                    .wrap(("Dawn" + System.currentTimeMillis()).getBytes());
                             socketChannel.write(wrap);
                             wrap.clear();
                             socketChannel.configureBlocking(false);
