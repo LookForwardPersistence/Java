@@ -31,5 +31,5 @@
 ~~~
 sh bin/mqadmin consumberProgress -g dawnGroup(组)
 ~~~
-
+- 安装参考 https://blog.csdn.net/licusliu/article/details/85248192
 ### 可视化管理
