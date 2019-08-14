@@ -27,5 +27,9 @@
 > sh bin/mqshutdown namesrv
 ~~~
 
+- 查看消费者推荐消息
+~~~
+sh bin/mqadmin consumberProgress -g dawnGroup(组)
+~~~
 
 ### 可视化管理
