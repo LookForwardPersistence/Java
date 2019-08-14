@@ -75,7 +75,7 @@ storePathIndex=/usr/local/rocketMQ/store/index
 ~~~
 sh bin/mqadmin consumerProgress -g dawnGroup(组)
 ~~~
-- 安装参考 https://blog.csdn.net/licusliu/article/details/85248192
+- 参考 https://blog.csdn.net/licusliu/article/details/85248192  https://blog.csdn.net/zhangcongyi420/article/details/82593982
 ### rocketmq-console安装
 - 修改项目配置文件application.properies
 ~~~
