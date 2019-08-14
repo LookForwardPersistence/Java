@@ -76,4 +76,21 @@ storePathIndex=/usr/local/rocketMQ/store/index
 sh bin/mqadmin consumerProgress -g dawnGroup(组)
 ~~~
 - 安装参考 https://blog.csdn.net/licusliu/article/details/85248192
-### 可视化管理
+### rocketmq-console安装
+- 修改项目配置文件application.properies
+~~~
+根据自身情况修改
+#修改端口
+server.port=8888
+rocketmq.config.namesrvAddr=namesrv地址
+#if you use rocketmq version < 3.5.8, rocketmq.config.isVIPChannel should be false.default true
+rocketmq.config.isVIPChannel=false
+~~~
+- 打包
+~~~
+mvn clean packe -Dmaven.test.skip=true
+~~~
+- 在target中获取jar包部署
+~~~
+java -jar ***.jar包
+~~~
