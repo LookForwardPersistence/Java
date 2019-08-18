@@ -109,7 +109,7 @@ punchCardInfoDTOS.stream().sorted(Comparator.comparing(PunchCardInfoDTO::getDate
 punchCardInfoDTOS.stream().sorted(Comparator.comparing(PunchCardInfoDTO::getDateTime)).collect(Collectors.toList());
 ~~~
 
--- 根据对象具体属性去重
+- 根据对象具体属性去重
 ~~~
 // 去重函数定义
 public static <T>Predicate<T> distinctByProperty(Function<?super T,?> keyExtractor){
