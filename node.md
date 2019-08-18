@@ -54,26 +54,6 @@ export function downloadFile(fileOrBlod,fileName){
 分析：java.net.SocketException: （Connection reset或者 Connect reset by peer:Socket write error）。该异常在客户端和服务器端均有可能发生，引起该异常的原因有两个，第一个就是如果一端的Socket被关闭（或主动关闭或者因为异常退出而引起的关闭），另一端仍发送数据，发送的第一个数据包引发该异常 (Connect reset by peer)。另一个是一端退出，但退出时并未关闭该连接，另一端如果在从连接中读数据则抛出该异常（Connection reset）。简单的说就是在连接断开后的读和写操作引起的。
 - 解决：linux服务curl -I https://yun.tim.qq.com 查看网络是正常（ping通不代表网络是正常），发现服务访问yun.tim.qq.com被安全拦截。找安全同事放行问题即解决。
 
-
-### 冲突解决
-~~~
-Step 1. Fetch and check out the branch for this merge request
-
-git fetch origin
-git checkout -b master origin/master
-Step 2. Review the changes locally
-
-Step 3. Merge the branch and fix any conflicts that come up
-
-git checkout prd
-git merge --no-ff master
-Step 4. Push the result of the merge to GitLab
-
-git push origin prd
-Tip: You can also checkout merge requests locally by following these guidelines.
-~~~
-
-
 ### java8 lambda
 - 过滤
 ~~~ 
