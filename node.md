@@ -85,6 +85,12 @@ List<PunchCardInfo> punchCardInfos ;
 ~~~
 List<AbnormalAttendanceDTO> abnormalAttendanceDTOS
 Map<String,Long> counting= abnormalAttendanceDTOS.stream().collect(Collectors.groupingBy(AbnormalAttendanceDTO::getContent,Collectors.counting()));
+
+//遍历取key value值
+for (Map.Entry<String,Long> entry:counting.entrySet()){
+String key = entry.getKey();
+Long value =entry.getValue();
+}
 ~~~
 
 - 分组
