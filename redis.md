@@ -1,4 +1,9 @@
 #### redis 配置
+
+- 运行远程访问设置
+~~~
+redis.conf 中的protected-mode yes 改为 protected-mode no
+~~~
 - 开启后台守护进程
 ~~~
 redis.conf 中的 daemeonize no 改为 daemenize yes
