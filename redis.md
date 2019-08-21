@@ -20,3 +20,18 @@ src/redis-server redis.conf
 ~~~
 ./redis-cli -p 6379 shutdown
 ~~~
+
+
+### redis 发布订阅
+- 订阅
+~~~
+subscribe channel
+~~~
+- 发布
+~~~
+publish channel message
+~~~
+- 取消订阅
+~~~
+unsubscribe channel
+~~~
