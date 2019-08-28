@@ -36,7 +36,9 @@
 - 启动  bin/kafka-manager
 
 
-### acks （0 1 -1） 配置默认1
+### 应答机制acks （0 1 -1） 配置默认1
 - 0 broker不等待收到回应 直接发
 - 1 收到确认后 再发下一条消息
-- -1 producer发送partion,并且所有partion（副本）都收到该条数据才发下一笔数据（保证了数据不丢失）
+- -1 producer发送partion,并且所有partion（副本）都收到该条数据才发下一笔数据（保证了数据不丢失，但延迟高）
+
+
