@@ -20,3 +20,9 @@ export PATH=${PATH}:${MAVEN_HOME}\bin
 ~~~
 source /ect/profile
 ~~~
+
+### 本地jar导入maven
+
+~~~
+mvn install:install-file -DgroupId=包名  -DartifactId=artifactId -Dversion=版本 -Dpackaging=jar -Dfile=jar包文件
+~~~
