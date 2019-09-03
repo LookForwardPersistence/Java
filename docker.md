@@ -82,3 +82,58 @@ docker port web
 - 进入容器 docker attach IMAGE_NAME
 - 启动nginx：nginx
 - 查看映射端口： docker port IMAGE_NAME
+
+
+### linux 安装docker
+- linux 3.10以上才能安装
+~~~
+查看系统版本指令
+uname -r
+~~~
+- 更新yum包
+~~~
+yum update
+~~~
+- 安装需要的软件包，yum-util 提供yum-config-manager功能，另外两个是devicemapper驱动依赖的
+~~~
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+~~~
+- 设置yum源
+~~~
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+~~~
+- 查看 仓库中所有docker版本
+~~~
+yum list docker-ce --showduplicates | sort -r
+~~~
+- 安装指定版本docker
+~~~
+sudo yum install docker-ce-17.12.0.ce --skip-broken
+~~~
+- 启动、设置开启开机启动
+~~~
+sudo systemctl start docker
+sudo systemctl enable docker
+~~~
+- 验证是否成功
+~~~
+docker version
+~~~
+- 查看docker启动状态
+~~~
+systemctl status docker
+~~~
+
+### 卸载docker
+- 查询docker安装过的包
+~~~
+yum list installed | grep docker
+~~~
+- 删除安装包
+~~~
+yum remove docker-ce.x86_64 ddocker-ce-cli.x86_64 -y
+~~~
+- 删除镜像/容器
+~~~
+rm -rf /var/lib/docker
+~~~
