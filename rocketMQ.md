@@ -151,6 +151,8 @@ public class MessageComsumer implements CommandLineRunner {
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
+        consumer.start();
+        System.out.println("消息消费者已经启动");
     }
     }
 ~~~
