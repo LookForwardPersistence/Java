@@ -101,3 +101,56 @@ java -jar ***.jar包
 ~~~
 检查客户端的版本，最好是能与服务器的版本保持一致（如服务用4.*版本，客户端用3.*版本，大版本差别是有问题的）
 ~~~
+
+### 生产者
+~~~
+  private DefaultMQProducer producer;
+    @PostConstruct
+    public void messageProducer() throws MQClientException {
+        producer = new DefaultMQProducer(producerGroup);
+        producer.setNamesrvAddr(namesrvAddr);
+        producer.setSendMessageWithVIPChannel(false);
+        producer.start();
+        System.out.println("消息生产者启动");
+    }
+
+    @Override
+    public String sendMQMessage(MessageCommand command) throws UnsupportedEncodingException, InterruptedException, RemotingException, MQClientException, MQBrokerException {
+        String msg=JSONObject.toJSONString(command);
+        Message message = new Message(topic,tag,msg.getBytes(RemotingHelper.DEFAULT_CHARSET));
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        SendResult result = producer.send(message);
+        stopWatch.stop();
+        return result.getMsgId();
+    }
+~~~
+
+### 消费者
+~~~
+public class MessageComsumer implements CommandLineRunner {
+    @Override
+    public void run(String... args) throws Exception {
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(consumerGroup);
+        consumer.setNamesrvAddr(namesrvAddr);
+        consumer.subscribe(topic,tag);
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                for (MessageExt messageExt:msgs){
+                    try {
+                        System.err.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        System.err.println(messageExt.getBody());
+                        MessageCommand messageCommand = JSONObject.parseObject(new String(messageExt.getBody(),"UTF-8"),MessageCommand.class);
+                        //发送图文消息
+                        sendImageMessage(messageCommand);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+    }
+    }
+~~~
