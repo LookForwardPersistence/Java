@@ -149,3 +149,92 @@ public class HttpClientUtils {
     }
 }
 ~~~
+
+### InvokeResult
+~~~
+public class InvokeResult<T> implements Serializable {
+
+    private static final long serialVersionUID = -4181103794622657034L;
+    /**
+     * 返回结果
+     * */
+    private T data;
+
+    /**
+     * 异常消息
+     * */
+    private String errorMessage;
+
+    /**
+     * 是否有异常
+     * */
+    private boolean hasErrors;
+
+    /**
+     * 是否成功
+     * */
+    private boolean success;
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public boolean isHasErrors() {
+        return hasErrors;
+    }
+
+    public void setHasErrors(boolean hasErrors) {
+        this.hasErrors = hasErrors;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public static InvokeResult success(){
+       InvokeResult invokeResult = new InvokeResult();
+       invokeResult.success=true;
+       invokeResult.hasErrors= !invokeResult.success;
+       return invokeResult;
+    }
+
+    public static <T> InvokeResult<T> success(T data){
+        InvokeResult invokeResult = new InvokeResult();
+        invokeResult.data = data;
+        invokeResult.success = true;
+        invokeResult.hasErrors=false;
+        return invokeResult;
+    }
+
+    public static InvokeResult failure(String msg){
+        InvokeResult invokeResult = new InvokeResult();
+        invokeResult.hasErrors= true;
+        invokeResult.success = false;
+        invokeResult.errorMessage=msg;
+        return invokeResult;
+    }
+
+    public static <T> InvokeResult<T> failure(T data){
+        InvokeResult invokeResult = new InvokeResult();
+        invokeResult.data = data;
+        invokeResult.hasErrors = true;
+        invokeResult.success = false;
+        return invokeResult;
+    }
+~~~
