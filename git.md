@@ -28,3 +28,21 @@ Step 4. Push the result of the merge to GitLab
 git push origin prd
 Tip: You can also checkout merge requests locally by following these guidelines.
 ~~~
+
+### 新增工程
+~~~
+…or create a new repository on the command line
+echo "# javaProject" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/LookForwardPersistence/javaProject.git
+git push -u origin master
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/LookForwardPersistence/javaProject.git
+git push -u origin master
+
+…or import code from another repository
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+~~~
