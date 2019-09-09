@@ -36,7 +36,7 @@ spring.shardingsphere.sharding.tables.user.actualDataNodes=message.user_${201909
 #分片数据库字段
 spring.shardingsphere.sharding.tables.user.tableStrategy.standard.shardingColumn=create_date
 #自定义分片算法
-spring.shardingsphere.sharding.tables.user.tableStrategy.standard.preciseAlgorithmClassName=com.csot.center.strategy.core.domain.messagelog.MessageShardingAlgorithm
+spring.shardingsphere.sharding.tables.user.tableStrategy.standard.preciseAlgorithmClassName=com.dawn.messagelog.MessageShardingAlgorithm
 #inline 表达式
 #spring.shardingsphere.sharding.tables.user.tableStrategy.inline.shardingColumn=id
 #spring.shardingsphere.sharding.tables.user.tableStrategy.inline.algorithmExpression=user_${id.longValue()%4}
