@@ -20,9 +20,10 @@ bin/zkServer.sh stop
 ~~~
 bin/zkServer.sh restart
 ~~~
-- 查看状态
+- 查看状态（主从）
 ~~~
 bin/zkServer.sh status
+
 ~~~
 
 ### 查看linux经常 jps
