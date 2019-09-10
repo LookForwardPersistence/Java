@@ -16,7 +16,7 @@ admin.metadata-report.address=zookeeper://127.0.0.1:2181
 ~~~
 - 集群配置 backup
 ~~~
-admin.registry.address=zookeeper://127.0.0.1:2181?backup=127.0.0.1:2181,127.0.0.1:2181
+admin.registry.address=zookeeper://127.0.0.1:2181?backup=127.0.0.2:2181,127.0.0.3:2181
 ~~~
 
 - 打包
