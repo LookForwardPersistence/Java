@@ -1,5 +1,6 @@
 ### 查看系统版本
 - cat /etc/redhat-release
+- uname -a
 ### 查看CentOS Linux防火墙状态
 - systemctl status firewalld
 ### 打开防火墙
