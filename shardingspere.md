@@ -33,6 +33,8 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 
 #表分区
 spring.shardingsphere.sharding.tables.user.actualDataNodes=message.user_${201909..201912}
+
+message.message_log_${201909..201912},message.message_log_${202001..202012},message.message_log_${202101..202112}
 #分片数据库字段
 spring.shardingsphere.sharding.tables.user.tableStrategy.standard.shardingColumn=create_date
 #自定义分片算法
