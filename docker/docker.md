@@ -14,3 +14,15 @@ This message shows that your installation appears to be working correctlyd
 - 显示全部容器信息 docker container ls --all
 - 查看cotainer id docker container ls -aq
 
+
+# 先删除容器再删除镜像
+~~~~
+查看镜像
+docker ps -a
+删除容器
+docker rm containerID
+查看镜像
+docker images
+删除镜像
+docker rmi imageId
+~~~~
