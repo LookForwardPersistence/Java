@@ -13,3 +13,4 @@ This message shows that your installation appears to be working correctlyd
 - 列出显示运行的容器信息  docker container ls 
 - 显示全部容器信息 docker container ls --all
 - 查看cotainer id docker container ls -aq
+
