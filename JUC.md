@@ -145,3 +145,48 @@ public static void main(String[] args) throws ExecutionException, InterruptedExc
         }
     }
 ~~~
+
+### PriorityBlockingQueue 有序队列
+~~~
+ public static void main(String[] args) {
+        //有序队列
+        PriorityBlockingQueue<User> queue = new PriorityBlockingQueue<>(5, new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                int age1= o1.age;
+                int age2=o2.age;
+                if(age1>age2){
+                    return -1;
+                }else if(age1==age2){
+                    return 0;
+                }else {
+                    return 1;
+                }
+            }
+        });
+        queue.put(new User(20,"Dawn"));
+        queue.put(new User(25,"Tony"));
+        queue.put(new User(18,"Star"));
+        queue.put(new User(30,"Jeam"));
+
+        System.out.println(queue.size());
+        for (;queue.size()>0;){
+            try {
+                User user = queue.take();
+                System.out.println("age:"+user.age+" name:"+user.name);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static class User{
+        private int age;
+        private String name;
+
+        public User(int age, String name) {
+            this.age = age;
+            this.name = name;
+        }
+    }
+~~~
