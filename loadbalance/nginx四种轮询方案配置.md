@@ -37,7 +37,7 @@ http {
 
 ~~~
 
-### 基于默认轮询方式
+### 基于轮询方式
 ~~~
 
 #user  nobody;
@@ -49,7 +49,7 @@ events {
     worker_connections  1024;
 }
 http {
-#   基于权重轮询
+#   基于权重
     upstream dawn {
     server ip:8081;
     server ip:8082;
@@ -89,7 +89,6 @@ events {
     worker_connections  1024;
 }
 http {
-#   基于权重轮询
     upstream dawn {
     ip_hash;
     server ip:8081;
@@ -129,7 +128,6 @@ events {
     worker_connections  1024;
 }
 http {
-#   基于权重轮询
     upstream dawn {
     least_conn;
     server ip:8081;
