@@ -1,7 +1,6 @@
 ### LVS linux虚拟服务器
 Linux visual server 国内
 ~~~
-工作在网络层
 目标：高性能高可用的服务器
       可伸缩性（scalable）、可靠性（Reliability）、可管理性（Managebility）
 ~~~
@@ -55,3 +54,4 @@ ip隧道直接发到真实服务器，而真实服务将响应直接返回给用
 - 带赋值的基于局部性的最少链接（Locality-Base Least Connection with Replication）
 - 目标地址散列（Destination Hashing）
 - 源地址散列（Source Hashing）
+
