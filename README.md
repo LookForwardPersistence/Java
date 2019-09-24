@@ -1,4 +1,12 @@
 # Java
+### 快捷键
+~~~
+#查看实现类
+ctrl + alt + B
+
+#查看方法
+ctrl + F12
+~~~
 #### 线程五种状态
 6个状态定义 java.lang.Thread.State
 -  New
