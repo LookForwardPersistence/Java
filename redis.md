@@ -37,7 +37,7 @@ unsubscribe channel
 ~~~
 
 
-Redisson springboot集群配置
+## Redisson springboot集群配置
 
 ### springboot.properties
 ~~~
