@@ -35,3 +35,51 @@ publish channel message
 ~~~
 unsubscribe channel
 ~~~
+
+
+Redisson springboot集群配置
+
+### springboot.properties
+~~~
+#Redisson settings
+spring.redis.redisson.config=classpath:redisson.yaml
+~~~
+
+### redison.yaml
+~~~
+clusterServersConfig:
+  #连接空闲超时，单位：毫秒
+  idleConnectionTimeout: 10000
+  pingTimeout: 1000
+  #同任何节点建立连接时的等待超时。时间单位是毫秒
+  connectTimeout: 10000
+  #等待节点回复命令的时间。该时间从命令发送成功时开始计时
+  timeout: 3000
+  #如果尝试达到 retryAttempts（命令失败重试次数） 仍然不能将命令发送至某个指定的节点时，将抛出错误。如果尝试在此限制之内发送成功，则开始启用 timeout（命令等待超时） 计时
+  retryAttempts: 3
+  #在一条命令发送失败以后，等待重试发送的时间间隔。时间单位是毫秒
+  retryInterval: 1500
+  failedSlaveReconnectionInterval: 3000
+  failedSlaveCheckInterval: 3
+  password: null
+  #每个连接的最大订阅数量
+  subscriptionsPerConnection: 5
+  #在Redis节点里显示的客户端名称
+  clientName: center-strategy
+  loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
+  slaveSubscriptionConnectionMinimumIdleSize: 1
+  slaveSubscriptionConnectionPoolSize: 50
+  slaveConnectionMinimumIdleSize: 32
+  slaveConnectionPoolSize: 64
+  masterConnectionMinimumIdleSize: 32
+  masterConnectionPoolSize: 64
+  readMode: "SLAVE"
+  nodeAddresses:
+  - "redis://localhost:7000"
+  - "redis://localhost:7001"
+  scanInterval: 1000
+threads: 0
+nettyThreads: 0
+codec: !<org.redisson.codec.JsonJacksonCodec> {}
+transportMode: "NIO"
+~~~
