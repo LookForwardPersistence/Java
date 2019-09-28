@@ -21,3 +21,8 @@ netstat -lnp|grep 8080
 最高权限
 chmod -R 777  文件夹明
 ~~~
+
+### 查看linux空间情况
+~~~
+free -h
+~~~
