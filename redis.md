@@ -86,7 +86,7 @@ transportMode: "NIO"
 
 
 ### rediss RedisTemplate 获取value 多双引号问题解决
-
+StringRedisSerializer 替换  Jackson2JsonRedisSerializer
 ~~~
 # 解决前
  public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
