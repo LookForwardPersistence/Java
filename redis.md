@@ -83,3 +83,32 @@ nettyThreads: 0
 codec: !<org.redisson.codec.JsonJacksonCodec> {}
 transportMode: "NIO"
 ~~~
+
+
+### rediss RedisTemplate 获取value 多双引号问题解决
+
+~~~
+# 解决前
+ public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
+        StringRedisTemplate template = new StringRedisTemplate(factory);
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.afterPropertiesSet();
+        return template;
+    }
+~~~
+~~~
+# 解决后
+ public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
+        StringRedisTemplate template = new StringRedisTemplate(factory);
+        //序列化为json字符串 modified by FQH 解决redision value多双引号问题
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        template.setKeySerializer(stringRedisSerializer);
+        template.setValueSerializer(stringRedisSerializer);
+        template.afterPropertiesSet();
+        return template;
+    }
+~~~
