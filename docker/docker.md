@@ -26,3 +26,15 @@ docker images
 删除镜像
 docker rmi imageId
 ~~~~
+### window 安装启动redis
+- 下载redis
+~~~
+docker pull redis
+~~~
+- 启动redis
+~~~
+ docker run -d -p 6378:6378 --name myredis redis
+ -d表示在后台运行，不阻塞命令行界面，让我们可继续输入其它命令，是detach单词缩写。
+-p 表示端口号，左边的6379表示win10系统的端口（自已换其它的也随便），右边的则表表容器中redis端口。
+--name表示运行redis镜像的一个实例名称。
+~~~
