@@ -13,7 +13,7 @@ This message shows that your installation appears to be working correctlyd
 - 列出显示运行的容器信息  docker container ls 
 - 显示全部容器信息 docker container ls --all
 - 查看cotainer id docker container ls -aq
-
+- 查看docker 容器ip docker inspect 容器名称或 id
 
 # 先删除容器再删除镜像
 ~~~~
