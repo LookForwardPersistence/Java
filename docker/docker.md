@@ -42,3 +42,7 @@ docker pull redis
 ~~~
 docker ps
 ~~~
+- 进入redis客户端
+~~~
+docker exec -it aba96715373e（containId 通过docker ps查看） redis-cli
+~~~
