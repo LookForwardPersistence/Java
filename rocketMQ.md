@@ -5,46 +5,105 @@
 ~~~
 # broker集群名称
 brokerClusterName = DefaultCluster
+
 # broker名称
 brokerName = broker-a
-#broker编号
+
+#broker编号0 表示 Master，>0 表示 Slave
 brokerId = 0
+
 #删除文件时间点，默认凌晨 4点
 deleteWhen = 04
+
 #文件保留时间，默认 48 小时
 fileReservedTime = 48
+
 #Broker 的角色异步复制Master: ASYNC_MASTER  Slave: SLAVE
 #同步双写 Master: SYNC_MASTER Slave: SLAVE
-brokerRole = ASYNC_MASTER
+brokerRole = SYNC_MASTER
+
 #刷盘方式ASYNC_FLUSH 异步刷盘-SYNC_FLUSH 同步刷盘
 flushDiskType = ASYNC_FLUSH
-#broker ip
+
+#broker ip地址
 brokerIP1=ip
+
+# broker端口 port可自由设置，一般设置10911 对外服务的监听端口
+listenPort=19201
+
 #namesrvAddr 服务ip及端口
 namesrvAddr=ip:9876
-#
+#消息索引是否安全,默认为 false,文件恢复时选择文件检测点（commitlog.consumeque）的最小的与文件最后更新对比，如果为true，文件恢复时选择文件检测点保存的索引更新时间作为对比
 messageIndexSafe=true
+
 #是否允许Broker 自动创建Topic，建议线下开启，线上关闭
 autoCreateTopicEnable=true
 
+# 是否允许 Broker 自动创建订阅组，建议线下开启，线上关闭
+autoCreateSubscriptionGroup=true
+
+# commitLog每个文件的大小默认1G
+mapedFileSizeCommitLog=1073741824
+
+#默认允许的最大消息体默认4M
+maxMessageSize= 4194304
+
+# ConsumeQueue每个文件默认存30W条，根据业务情况调整
+mapedFileSizeConsumeQueue=300000
+
+# 检测可用的磁盘空间大小,当磁盘被占用超过90%，消息写入会直接报错                    
+diskMaxUsedSpaceRatio=90
+
+#清除发送线程池任务队列的等待时间。如果系统时间减去任务放入队列中的时间小于waitTimeMillsInSendQueue，本次请求任务暂时不移除该任务
 waitTimeMillsInSendQueue=5000
+
 #发送消息线程池数量
 sendMessageThreadPoolNums=64
 
+#消息存储到commitlog文件时获取锁类型，如果为true使用ReentrantLock否则使用自旋锁
 useReentrantLockWhenPutMessage=true
+
 #创建Topic中默认的读队列数量
 defaultReadQueueNums = 16
+
 #创建Topic中默认的写队列数量
 defaultWriteQueueNums = 16
-# broker端口 port可自由设置，一般设置10911
-listenPort=19201
+
+#存储根路径
 storePathRootDir=/usr/local/rocketMQ/store
+
+#存储提交日志路径
 storePathCommitLog= /usr/local/rocketMQ/store/commitlog
+
 #消费队列存储路径
 storePathConsumeQueue=/usr/local/rocketMQ/store/consumequeue
+
 #消息索引存储路径
 storePathIndex=/usr/local/rocketMQ/store/index
+
 ~~~
+同步复制和异步复制是指master节点与slave节点的关系（如果一个Broker组有Master和Slave，消息需要从Master复制到Slave节点上）
+	同步复制	异步复制
+策略	当数据成功写到内存中Master节点后立刻同步到slave节点中，当Slave也成功的前提下返回写成功状态	当数据成功写到内存中Master节点后，直接返回成功状态，异步将Master节点的数据存入Slave节点
+优点	数据安全性高	性能比同步复制高
+缺点	性能比异步复制低	数据可能丢失
+
+
+
+同步刷盘和异步刷盘指内存和磁盘关系（RocketMQ最终消息是存储在磁盘上，这样既能保证断电后恢复，又可以让存储的消息量超出内存的限制，从客户端发送消息，开始写到内存，再写到磁盘上）
+	同步刷盘	异步刷盘
+策略	当数据成功写到内存后立刻刷盘，当数据也成功写到磁盘后才返回写成功状态	数据写到内存后，直接返回成功状态，异步将内存中的数据持久化到磁盘
+优点	保证了数据的可靠性，保证了数据不会丢失	提高系统的吞吐量
+缺点	同步刷盘效率低	不能保证数据的可靠性
+3、	参考
+https://www.cnblogs.com/qdhxhz/p/11116197.html
+https://www.cnblogs.com/zhyg/p/10255656.html
+http://hiant.github.io/2016/08/18/rocketmq-0x3/
+https://www.cnblogs.com/linjiqin/p/7511062.html
+http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/
+
+
+
 - cd distribution/target/apache-rocketmq
 - start name server 
 ~~~
@@ -156,3 +215,4 @@ public class MessageComsumer implements CommandLineRunner {
     }
     }
 ~~~
+
