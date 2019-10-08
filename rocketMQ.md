@@ -82,6 +82,7 @@ storePathConsumeQueue=/usr/local/rocketMQ/store/consumequeue
 storePathIndex=/usr/local/rocketMQ/store/index
 
 ~~~
+建议线上配置：同步复制+异步刷盘
 同步复制和异步复制是指master节点与slave节点的关系（如果一个Broker组有Master和Slave，消息需要从Master复制到Slave节点上）
 	同步复制	异步复制
 策略	当数据成功写到内存中Master节点后立刻同步到slave节点中，当Slave也成功的前提下返回写成功状态	当数据成功写到内存中Master节点后，直接返回成功状态，异步将Master节点的数据存入Slave节点
