@@ -41,5 +41,5 @@ eg： scp -r rocketmq.4.4.0 root@10.192.20.220:/user/local
 ### 给文件夹及文件夹下所有文件授权
 
 ~~~
-chmod 777 -R 文件夹明
+chmod 777 -R 文件夹名/
 ~~~
