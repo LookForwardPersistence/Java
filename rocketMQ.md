@@ -222,3 +222,10 @@ public class MessageComsumer implements CommandLineRunner {
     }
 ~~~
 
+### 其他问题
+- broker无法启动
+~~~
+修改bin/runbroker.sh文件
+JAVA_OPT="${JAVA_OPT} -server -Xms4g -Xmx4g -Xmn1g"
+~~~
+
