@@ -26,3 +26,14 @@ chmod -R 777  文件夹明
 ~~~
 free -h
 ~~~
+### linux 服务器件传数据
+- 传文件指令
+~~~
+scp 文件名 远程服务账号@远程服务器ip:文件存放路径
+eg: scp test.text root@10.192.20.220:/user/local
+~~~
+- 传文件夹
+~~~
+scp -r 文件夹名称 远程服务账号@远程服务器ip:文件存放路径
+eg： scp -r rocketmq.4.4.0 root@10.192.20.220:/user/local
+~~~
