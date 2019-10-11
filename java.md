@@ -58,3 +58,50 @@ public class CounterUnsafe {
 
 总之，java 的transient关键字为我们提供了便利，你只需要实现Serilizable接口，将不需要序列化的属性前添加关键字transient，序列化对象的时候，这个属性就不会序列化到指定的目的地中。
 ~~~
+
+
+### java8 lambda
+- 过滤
+~~~ 
+List<PunchCardInfo> punchCardInfos ;
+ List<PunchCardInfo> infos = punchCardInfos.stream().filter(punchCardInfo -> punchCardInfo.getDateTime().equals(item.getDateTime())).collect(Collectors.toList());
+~~~ 
+
+- 分组统计
+~~~
+List<AbnormalAttendanceDTO> abnormalAttendanceDTOS
+Map<String,Long> counting= abnormalAttendanceDTOS.stream().collect(Collectors.groupingBy(AbnormalAttendanceDTO::getContent,Collectors.counting()));
+
+//遍历取key value值
+for (Map.Entry<String,Long> entry:counting.entrySet()){
+String key = entry.getKey();
+Long value =entry.getValue();
+}
+~~~
+
+- 分组
+~~~
+List<Zhrdk> result
+Map<String,List<Zhrdk>> groupByDateList=result.stream().collect(Collectors.groupingBy(Zhrdk::getZbegda));
+~~~
+
+- 排序（降序reversed()）
+~~~
+punchCardInfoDTOS.stream().sorted(Comparator.comparing(PunchCardInfoDTO::getDateTime).reversed()).collect(Collectors.toList());
+~~~
+
+- 排序 （升序）
+~~~
+punchCardInfoDTOS.stream().sorted(Comparator.comparing(PunchCardInfoDTO::getDateTime)).collect(Collectors.toList());
+~~~
+
+- 根据对象具体属性去重
+~~~
+// 去重函数定义
+public static <T>Predicate<T> distinctByProperty(Function<?super T,?> keyExtractor){
+        Map<Object,Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t),Boolean.TRUE)==null;
+    }
+//
+entryList.stream().filter(distinctByProperty(EventLog::getEquipmentId)).collect(Collectors.toList());
+~~~
