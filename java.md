@@ -61,6 +61,21 @@ public class CounterUnsafe {
 
 
 ### java8 lambda
+
+- 方法引用: 类名::方法名
+~~~
+构造一个该方法的闭包
+
+表达式：
+person->person.getName();
+可以替换：
+person::getName
+表达式：
+()->new HashMap<>();
+可替换成：
+HashMap::new
+对应的参数类型是Function<T,R> T表示传入类型，R表示返回类型。
+~~~
 - 过滤
 ~~~ 
 List<PunchCardInfo> punchCardInfos ;
@@ -102,6 +117,7 @@ public static <T>Predicate<T> distinctByProperty(Function<?super T,?> keyExtract
         Map<Object,Boolean> seen = new ConcurrentHashMap<>();
         return t -> seen.putIfAbsent(keyExtractor.apply(t),Boolean.TRUE)==null;
     }
-//
+// :: 方法引用 类名::方法名
 entryList.stream().filter(distinctByProperty(EventLog::getEquipmentId)).collect(Collectors.toList());
 ~~~
+
