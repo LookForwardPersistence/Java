@@ -12,3 +12,7 @@ cpu get NumberOfCores
 ~~~
 cpu get NumberOfLogicalProcessors
 ~~~
+- host路径
+~~~
+C:\Windows\System32\drivers\etc
+~~~
