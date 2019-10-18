@@ -229,3 +229,94 @@ public class MessageComsumer implements CommandLineRunner {
 JAVA_OPT="${JAVA_OPT} -server -Xms4g -Xmx4g -Xmn1g"
 ~~~
 
+
+
+
+### 集群部署
+2台服务器，2个namesrv  4个broker 采用多主多从异步方式
+- 10.198.5.167服务器
+~~~
+# broker-a.properties a主节点
+
+brokerClusterName=async-rocket-mq-cluster
+brokerName=broker-a
+brokerId=0
+listenPort=10911
+namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+deleteWhen=04
+fileReservedTime=48
+brokerRole=ASYNC_MASTER
+flushDiskType=ASYNC_FLUSH
+storePathRootDir=/usr/local/rocketMQ/store/rootdir-a-m
+storePathCommitLog=/usr/local/rocketMQ/store/commitlog-a-m
+autoCreateSubcriptionGroup=true
+autoCreateTopicEnable=true
+
+#  broker-b-s.properties b从节点
+
+brokerClusterName=async-rocket-mq-cluster
+brokerName=broker-b
+brokerId=1
+listenPort=10921
+namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+deleteWhen=04
+fileReservedTime=48
+brokerRole=SLAVE
+flushDiskType=ASYNC_FLUSH
+storePathRootDir=/usr/local/rocketMQ/store/rootdir-b-s
+storePathCommitLog=/usr/local/rocketMQ/store/commitlog-b-s
+autoCreateSubcriptionGroup=true
+autoCreateTopicEnable=true
+~~~
+- 10.190.20.121 服务器
+~~~
+#broker-b.properties a主节点
+
+
+brokerClusterName=async-rocket-mq-cluster
+brokerName=broker-b
+brokerId=0
+listenPort=10911
+namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+deleteWhen=04
+fileReservedTime=48
+brokerRole=ASYNC_MASTER
+flushDiskType=ASYNC_FLUSH
+storePathRootDir=/usr/local/rocketMQ/store/rootdir-b-m
+storePathCommitLog=/usr/local/rocketMQ/store/commitlog-b-m
+autoCreateSubcriptionGroup=true
+autoCreateTopicEnable=true
+
+
+# broker-a-s.properties a从节点
+
+brokerClusterName=async-rocket-mq-cluster
+brokerName=broker-a
+brokerId=1
+listenPort=10921
+namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+deleteWhen=04
+fileReservedTime=48
+brokerRole=SLAVE
+flushDiskType=ASYNC_FLUSH
+storePathRootDir=/usr/local/rocketMQ/store/rootdir-a-s
+storePathCommitLog=/usr/local/rocketMQ/store/commitlog-a-s
+autoCreateSubcriptionGroup=true
+autoCreateTopicEnable=true
+~~~
+
+- 启动脚本(主从类似) 启动namesrv-> master broker-> slave broker
+
+~~~
+#namesrv
+#!/bin/bash
+nohup sh /usr/local/rocketMQ/rocketmq-all-4.4.0/bin/mqnamesrv > /usr/local/rocketMQ/store/startlog/star_nameserver.log 2>&1 &
+
+# master broker
+#!/bin/bash
+nohup sh /usr/local/rocketMQ/rocketmq-all-4.4.0/bin/mqbroker -c /usr/local/rocketMQ/rocketmq-all-4.4.0/conf/2m-2s-async/broker-a.properties > /usr/local/rocketMQ/store/startlog/star-broker-m.log 2>&1 &
+
+#slave broker
+#!/bin/bash
+nohup sh /usr/local/rocketMQ/rocketmq-all-4.4.0/bin/mqbroker -c /usr/local/rocketMQ/rocketmq-all-4.4.0/conf/2m-2s-async/broker-b-s.properties > /usr/local/rocketMQ/store/startlog/star-broker-b-s.log 2>&1 &
+~~~
