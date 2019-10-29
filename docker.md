@@ -140,7 +140,7 @@ rm -rf /var/lib/docker
 
 
 ### linux docker
-- 获取安装脚本
+- 安装脚本get-docker.sh
 ~~~
 #!/bin/sh
 set -e
