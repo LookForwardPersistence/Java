@@ -137,3 +137,13 @@ yum remove docker-ce.x86_64 ddocker-ce-cli.x86_64 -y
 ~~~
 rm -rf /var/lib/docker
 ~~~
+
+
+### linux docker
+- 获取安装脚本
+~~~
+~~~
+- 启动docker
+~~~
+sudo systemctl start docker 
+~~~
