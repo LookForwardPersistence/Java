@@ -1,4 +1,5 @@
 ### 查看系统版本
+- cat /proc/version
 - cat /etc/redhat-release
 - uname -a
 ### 查看CentOS Linux防火墙状态
