@@ -160,3 +160,29 @@ curl -s api.infoip.io/ip
 curl -s ip.appspot.com
 wget -O - -q https://icanhazip.com/
 ~~~
+
+### 安装redis 及其使用
+- 按redis
+~~~
+docker pull redis
+~~~
+- 查看镜像文件
+~~~
+docker images redis
+~~~
+- docker 启动redis
+-p 6379:6379 : 将容器的6379端口映射到主机的6379端口
+-v $PWD/data:/data : 将主机中当前目录下的data挂载到容器的/data
+redis-server --appendonly yes : 在容器执行redis-server启动命令，并打开redis持久化配置
+~~~
+docker run -p 6379:6379 -v $PWD/data:/data -d redis redis-server --appendonly=true
+~~~
+- 查看容器启动情况
+~~~
+docker ps
+~~~
+- exec进入容器
+docker exec -it 容器id  redis-cli
+~~~
+docker exec -it a826468cbd3e redis-cli
+~~~
