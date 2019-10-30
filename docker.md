@@ -212,3 +212,15 @@ Public key for *.rpm is not installed解决方法
 #本机是CentOS7
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 ~~~
+
+
+### docker 安装nginx
+- 拉取nginx镜像
+~~~
+docker pull nginx
+~~~
+- 启动nginx实例容器
+-d 后台启动
+~~~
+docker run --name mynginx -p 8888:80 -d nginx
+~~~
