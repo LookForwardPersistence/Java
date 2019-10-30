@@ -124,6 +124,17 @@ docker version
 systemctl status docker
 ~~~
 
+- 添加中转站
+~~~
+/etc/docker/
+vim daemon.json
+{
+  "registry-mirro":{
+            "https://registry.docker-cn.com"
+           }
+}
+~~~
+
 ### 卸载docker
 - 查询docker安装过的包
 ~~~
@@ -186,7 +197,6 @@ docker exec -it 容器id  redis-cli
 ~~~
 docker exec -it a826468cbd3e redis-cli
 ~~~
-
 ### linux安装container-selinux版本低问题问题1
 ~~~
 yum 安装container-selinux 一般的yum源又找不到这个包
