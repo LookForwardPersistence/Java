@@ -187,7 +187,7 @@ docker exec -it 容器id  redis-cli
 docker exec -it a826468cbd3e redis-cli
 ~~~
 
-### linux安装container-selinux版本低问题问题
+### linux安装container-selinux版本低问题问题1
 ~~~
 yum 安装container-selinux 一般的yum源又找不到这个包
 需要安装epel源 才能yum安装container-selinux
@@ -195,4 +195,10 @@ yum 安装container-selinux 一般的yum源又找不到这个包
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 yum install epel-release   #阿里云上的epel源
 然后yum install container-selinux
+~~~
+### docker安装问题2 
+Public key for *.rpm is not installed解决方法
+~~~
+#本机是CentOS7
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 ~~~
