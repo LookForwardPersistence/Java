@@ -186,3 +186,13 @@ docker exec -it 容器id  redis-cli
 ~~~
 docker exec -it a826468cbd3e redis-cli
 ~~~
+
+### linux安装container-selinux版本低问题问题
+~~~
+yum 安装container-selinux 一般的yum源又找不到这个包
+需要安装epel源 才能yum安装container-selinux
+然后在安装docker-ce就可以了。
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+yum install epel-release   #阿里云上的epel源
+然后yum install container-selinux
+~~~
