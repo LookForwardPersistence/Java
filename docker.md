@@ -124,7 +124,7 @@ docker version
 systemctl status docker
 ~~~
 
-- 添加中转站
+- 添加docker镜像中转站
 ~~~
 /etc/docker/
 vim daemon.json
