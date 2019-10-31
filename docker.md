@@ -126,12 +126,12 @@ systemctl status docker
 
 - 添加docker镜像中转站
 ~~~
+# 添加网易中转站
 /etc/docker/
-vim daemon.json
 {
-  "registry-mirro":{
-            "https://registry.docker-cn.com"
-           }
+  "registry-mirrors":[
+            "http://hub.mirror.c.163.com"
+           ]
 }
 ~~~
 
