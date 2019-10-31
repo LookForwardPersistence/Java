@@ -135,6 +135,7 @@ systemctl status docker
 ~~~
 # 添加网易中转站
 /etc/docker/
+新增daemon.json
 {
   "registry-mirrors":[
             "http://hub.mirror.c.163.com"
