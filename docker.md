@@ -133,7 +133,12 @@ systemctl status docker
             "http://hub.mirror.c.163.com"
            ]
 }
+
+#重启
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ~~~
+
 
 ### 卸载docker
 - 查询docker安装过的包
