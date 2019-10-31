@@ -144,6 +144,8 @@ systemctl status docker
 #重启
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+# 查看是否设置成功
+sudo docker info
 ~~~
 
 
