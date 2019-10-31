@@ -245,8 +245,9 @@ docker run --name mynginx -p 8888:80 -d nginx
 很多时候用pip 联网install 库的时候会安装不成功，这个时候需要用-i指定国内的下载源
 pip install xlrd -i https://pypi.douban.com/simple/
 目前国内好用的下载源有：
-
+~~~
 http://pypi.v2ex.com/simple/
 http://pypi.douban.com/simple/
 https://pypi.tuna.tsinghua.edu.cn/simple
 http://mirrors.aliyun.com/pypi/simple/
+~~~
