@@ -263,3 +263,23 @@ sudo chmod +x docker-compose
 安装成功查看，如果有版本信息标识安装成功
 docker-compose --version
 ~~~
+
+### 创建自己的docker镜像文件
+- 新增Dockerfile文件
+~~~
+# 指定基础镜像
+FROM openjdk:8-jdk-alpine
+# 镜像描述信息，作者等
+MAINTAINER star<star@163.com>
+# 添加卷
+VOLUME /temp
+# 
+ADD ./dubbo-admin-server-0.1.jar dubboadmin.apr
+# 
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/dubboadmin.jar"]
+~~~
+- 生产镜像文件
+docker build -t 上下文:tag . (“.”表示当前目录)
+~~~
+docker build -t dubboadmin:v1 .
+~~~
