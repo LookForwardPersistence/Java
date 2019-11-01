@@ -120,4 +120,9 @@ public static <T>Predicate<T> distinctByProperty(Function<?super T,?> keyExtract
 // :: 方法引用 类名::方法名
 entryList.stream().filter(distinctByProperty(EventLog::getEquipmentId)).collect(Collectors.toList());
 ~~~
-
+### 对象及json字符串互转
+~~~
+包名：com.alibaba.fastjson
+对象转json字符串：JSONObject.toJSONString(对象)
+json转对象：JSONObject.parseObject（json.toString(),对象.class）
+~~~
