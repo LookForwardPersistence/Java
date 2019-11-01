@@ -1,3 +1,18 @@
+### docker 参数说明
+~~~
+-d: 后台运行容器，并返回容器ID
+-i: 以交互模式运行容器，通常与-t同时使用
+-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用
+--name: 为容器指定一个名称
+-e: 设置环境变量
+--env-file: 从指定文件读取环境变量
+-p: 端口映射，如果不做端口映射，容器外部无法访问容器内部
+-v: 文件挂载
+--link: 添加链接到容器，在default网络下，默认不会将容器名称解析到容器IP地址，必须要添加link选项才可以。而在自定义网络下，则不需要添加此选项
+————————————————
+版权声明：本文为CSDN博主「若明天不见」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/why_still_confused/article/details/81545336
+~~~
 ### docker 基本操作（windows）
 启动 Docker for widows，启动成功，在cmd命令框输入 PowerShell，打开命令窗口
 - 启动一次容器操作：docker run IMAGE_NAME
