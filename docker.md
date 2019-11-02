@@ -180,7 +180,13 @@ rm -rf /var/lib/docker
 ### linux docker
 - 获取安装脚本get-docker.sh
 ~~~
-curl -fsSL https://get.docker.com -o get-docker.sh
+1、curl -fsSL https://get.docker.com -o get-docker.sh
+2、rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+3、sudo sh get-docker.sh
+~~~
+- 查看安装是否成功
+~~~
+docker version
 ~~~
 - 启动docker
 ~~~
