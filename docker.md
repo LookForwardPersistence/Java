@@ -140,14 +140,11 @@ systemctl status docker
 ~~~
 
 - 添加docker镜像中转站
+~~~
   1）Docker 官方中国区     https://registry.docker-cn.com
   2）网易    http://hub-mirror.c.163.com
   3）腾讯 https://mirror.ccs.tencentyun.com
   4）阿里 https://eqcxmbvw.mirror.aliyuncs.com
-————————————————
-版权声明：本文为CSDN博主「路西法_Lucifer」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/qq_37495786/article/details/83246421
-~~~
 # 添加网易中转站
 /etc/docker/
 新增daemon.json
