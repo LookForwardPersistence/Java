@@ -26,6 +26,8 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-o
 
 container-selinux问题的解决方案, 参考nderzhak的回答
 
+https://www.xuboso.com/blogs/48/how-to-install-docker-ce-on-rhel7
+
 脚本安装Docker-CE
 
 Docker系列教程
