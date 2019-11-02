@@ -1,3 +1,4 @@
+~~~
 在RHEL7上安装Docker CE
 服务器版本: Red Hat Enterprise Linux Server release 7.5
 
@@ -31,3 +32,4 @@ https://www.xuboso.com/blogs/48/how-to-install-docker-ce-on-rhel7
 脚本安装Docker-CE
 
 Docker系列教程
+~~~
