@@ -24,3 +24,32 @@ RUN ["可执行文件","参数1","参数2"]
 #最后有一个‘.’表示当前目录
 docker build -t nginx:v1 .
 ~~~
+### Dockerfile指令详解
+- COPY复制指令
+1. COPY <源路径><目标路径>
+2. 构建上下文目录中<源路径>的文件目录复制到新一层镜像的镜像内的<目标路径>位置
+~~~
+COPY pk.json /user/src/app/
+#多个源路径
+COPY hom* /dir/
+COPY hom?.txt /dir
+~~~
+- ADD高级的复制指令
+~~~
+除了COPY功能外，ADD新增一些功能，源路径可以是URL
+~~~
+- ENTRYPOINT 入口点
+~~~
+ENTRYPOINT与CMD功能一样，都是在指定程序指定容器及参数
+~~~
+- ENV设置环境变量
+1. ENV <key><value>
+2. ENV <key1>=<value1> <key2>=<value2>
+~~~
+ENV VERSION=1.0 DEBBUG=on NAME="Dawn Feet"
+~~~  
+- ARG构建参数
+~~~
+ARG <参数名>[=<默认值>]
+~~~
+  
