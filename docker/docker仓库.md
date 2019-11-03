@@ -1,4 +1,4 @@
-### docker提供公有仓库
+### Docker提供公有仓库
 - 注册
 ~~~
 https://hub.docker.com
@@ -23,7 +23,7 @@ docker push 镜像（镜像格式：用户名/镜像名）
 ~~~
 docker logout
 ~~~
-### 构建私有仓库
+### 搭建私有仓库
 - 安装运行docker-registry
 ~~~
 #默认情况下，仓库会被创建在容器的/var/lib/registry目录下，可以通过-v参数来镜像文件存放在本地指定路径
