@@ -93,3 +93,27 @@ docker inspect
 ONBUILD<其他指令>
 以当前镜像为基础镜像，去构建下一级镜像时才会被执行
 ~~~
+### Docker运行java程序
+- Dockerfile文件内容
+~~~
+#基础镜像
+FROM tomcat:8
+# 作者信息
+MAINTAINER dawn<fqhua_5@sina.cn>
+# 定义环境变量
+ENV TOMCAT_BASE/usr/local/tomcat
+# 复制war包
+COPY ./web.jar $TOMCAT_BASE/webapps/
+~~~
+- 执行构建
+~~~
+docker build -t web:last .
+~~~
+- 运行镜像
+~~~
+docker run --name web -d -p 9001:8080 web:last
+~~~
+- 启动成功在浏览器访问
+~~~
+http://ip:9001即可
+~~~
