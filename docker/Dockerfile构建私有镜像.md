@@ -43,13 +43,53 @@ COPY hom?.txt /dir
 ENTRYPOINT与CMD功能一样，都是在指定程序指定容器及参数
 ~~~
 - ENV设置环境变量
+~~~
 1. ENV <key><value>
 2. ENV <key1>=<value1> <key2>=<value2>
-~~~
 ENV VERSION=1.0 DEBBUG=on NAME="Dawn Feet"
 ~~~  
 - ARG构建参数
 ~~~
+构建的参数，在将来运行时是不会存在这些变量中的
 ARG <参数名>[=<默认值>]
 ~~~
-  
+- VOLUME定义匿名卷
+~~~
+VOLUME <路径>
+VOLUME /temp
+~~~
+- 覆盖挂载指令
+~~~
+docker run -d -v newtemp:/temp XXX
+~~~
+- EXPOSE声明端口
+~~~
+EXPOSE <端口1>[<端口2>]
+EXPOSE声明运行时为容器提供服务端口。
+~~~
+- WORKDIR指定工作目录
+~~~
+WORKDIR <工种目录>
+~~~
+- USER指定当前用户
+~~~
+USER<用户名>
+~~~
+- HEALTHCHECK讲课检查
+~~~
+HEALTHCHECK[选项]CMD<命令>:设置检查容器健康状况的命令
+--interval=<间隔>
+--timeout=<时长>
+--retries=<次数>
+#屏蔽健康检查指令
+HEALTHCHECK NONE
+~~~
+- 查看健康状态
+~~~
+docker inspect
+~~~
+- ONBUILD为他人做嫁衣
+~~~
+ONBUILD<其他指令>
+以当前镜像为基础镜像，去构建下一级镜像时才会被执行
+~~~
