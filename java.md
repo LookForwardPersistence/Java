@@ -126,3 +126,169 @@ entryList.stream().filter(distinctByProperty(EventLog::getEquipmentId)).collect(
 对象转json字符串：JSONObject.toJSONString(对象)
 json转对象：JSONObject.parseObject（json.toString(),对象.class）
 ~~~
+
+### 图文合并
+~~~
+ ImageIcon imgIcon=new ImageIcon(filePath);
+        Image theImg =imgIcon.getImage();
+        int width=theImg.getWidth(null)==-1?200:theImg.getWidth(null);
+        int height= theImg.getHeight(null)==-1?200:theImg.getHeight(null);
+        BufferedImage bimage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g=bimage.createGraphics();
+        Color mycolor = Color.black;
+        g.setColor(mycolor);
+//        g.setBackground(Color.ORANGE);
+        g.drawImage(theImg, 0, 0, null );
+        g.setFont(new Font("华文宋体",Font.ROMAN_BASELINE,36)); //字体、字型、字号
+        Color blue = Color.blue;
+        String title="标题";
+        int xPosistion=width/10+25;
+        int yPositon=height/2+80;
+        int sort=80;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i <8 ; i++) {
+            int preData=yPositon+sort;
+            map.put(i,preData+sort*i);
+        }
+        g.drawString(title,xPosistion,yPositon);
+        g.dispose();
+        FileOutputStream out=null;
+        try
+        {
+            out = new FileOutputStream(outPath); //输出文件流
+           // 使用推外内存
+            ImageIO.setUseCache(false);
+            ImageIO.write(bimage,"jpg",out);
+            out.close();
+        }
+        catch(Exception e)
+        {
+            logger.error(e.getMessage());
+            return false;
+        }finally {
+            if(out!=null){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    logger.error(e.getMessage());
+                }
+            }
+        }
+~~~
+### springboot获取文件路径
+~~~
+private String getFilePath(String filePath){
+        File file = null;
+        try {
+            file = ResourceUtils.getFile(filePath);
+            if (file==null){
+                return "";
+            }
+            System.err.println(file.getPath());
+            return file.getPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+    
+    eg： String prefixPath= getFilePath("classpath:static/images");
+~~~
+### poi 读取excel表格
+~~~
+private static final String XLS ="xls";
+private static final String XLSX="xlsx";
+
+public Workbook getWorkbook(InputStream inputStream,String fileType) {
+        Workbook workbook =null;
+        try {
+            if(fileType.equalsIgnoreCase(XLS)){
+                workbook=new HSSFWorkbook(inputStream);
+            }else if (fileType.equalsIgnoreCase(XLSX)){
+                workbook=new XSSFWorkbook(inputStream);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return workbook;
+    }
+    
+
+
+    public String getCellValue(Cell cell){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        String cellValue="";
+        try {
+
+        if (cell == null) {
+            return cellValue;
+        }
+        // 判断数据的类型
+        switch (cell.getCellTypeEnum()) {
+            case NUMERIC: // 数字
+                if (DateUtil.isCellDateFormatted(cell)) {// 处理日期格式、时间格式
+                    SimpleDateFormat sdf = null;
+                    Date date = cell.getDateCellValue();
+                    if(null!=date)
+                    cellValue = dateFormat.format(date);
+                } else if (cell.getCellStyle().getDataFormat() == 0) {//处理数值格式
+                    cell.setCellType(CellType.STRING);
+                    cellValue = String.valueOf(cell.getRichStringCellValue().getString());
+                }
+                break;
+            case STRING: // 字符串
+                cellValue = String.valueOf(cell.getStringCellValue());
+                break;
+            case BOOLEAN: // Boolean
+                cellValue = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case FORMULA: // 公式
+                  cellValue = dateFormat.format(cell.getDateCellValue());
+//                cellValue = String.valueOf(cell.getCellFormula());
+                break;
+            case BLANK: // 空值
+                cellValue = null;
+                break;
+            case ERROR: // 故障
+                cellValue = "非法字符";
+                break;
+            default:
+                cellValue = "未知类型";
+                break;
+        }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return cellValue;
+    }
+    
+    public List<AnniversaryDTO> readExcel(String fileName) throws IOException {
+       Workbook workbook = null;
+       FileInputStream fileInputStream=null;
+       String fileType = fileName.substring(fileName.indexOf(".")+1,fileName.length());
+       try {
+           File file = new File(fileName);
+           if(!file.exists()){
+               logger.error(fileName+":该文件不存在");
+               return null;
+           }
+           fileInputStream = new FileInputStream(file);
+           workbook=getWorkbook(fileInputStream,fileType);
+           List<AnniversaryDTO> anniversaryDTOS = excelToAnniversary(workbook);
+           return anniversaryDTOS;
+       } catch (Exception e) {
+           e.printStackTrace();
+           logger.error("read the excel err:"+e.getMessage());
+           return null;
+       } finally {
+           if(null!=workbook){
+               workbook.close();
+           }
+           if(null!=fileInputStream){
+               fileInputStream.close();
+           }
+       }
+   }
+~~~
