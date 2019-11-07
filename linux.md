@@ -86,3 +86,9 @@ chmod 777 -R 文件夹名/
 
 https://blog.csdn.net/lhf_tiger/article/details/7102753
 ~~~
+
+### vim添加行号
+~~~
+vim 文件
+:set nu
+~~~
