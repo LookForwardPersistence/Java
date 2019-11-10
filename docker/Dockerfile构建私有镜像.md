@@ -1,3 +1,17 @@
+### docker-compose安装
+github上的docker-compose 提供的拉取指令安装不了，采用直接下载docker-compose-Linux-x86_64方式
+~~~
+#下载地址：
+https://github.com/docker/compose/releases/tag/1.25.0-rc4
+#存放docker-compose-Linux-x86_64目录
+/usr/local/bin
+#修改文件名称
+mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+#授权
+sudo chmod +x docker-compose
+#安装成功查看，如果有版本信息标识安装成功
+docker-compose --version
+~~~
 Dockerfile是一个脚本文本文件，镜像定制就是把每一层的修改、安装、构建操作的指令（每一条指令的内容是描述该层是如果构建的）都写入这个脚本文本文件。
 ### 构建自己的nginx镜像
 1. 新建一个空白目录，创建Dockerfile文本文件
