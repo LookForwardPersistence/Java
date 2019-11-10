@@ -274,11 +274,15 @@ http://mirrors.aliyun.com/pypi/simple/
 ### docker-compose安装
 github上的docker-compose 提供的拉取指令安装不了，采用直接下载docker-compose-Linux-x86_64方式
 ~~~
+#下载地址：
 https://github.com/docker/compose/releases/tag/1.25.0-rc4
-目录放在：/usr/local/bin
+#存放docker-compose-Linux-x86_64目录
+/usr/local/bin
+#修改文件名称
 mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+#授权
 sudo chmod +x docker-compose
-安装成功查看，如果有版本信息标识安装成功
+#安装成功查看，如果有版本信息标识安装成功
 docker-compose --version
 ~~~
 
