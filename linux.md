@@ -102,3 +102,16 @@ find *.tmp -exec rm -rf {} \;
 ~~~
 find *.tmp -mmin 4 -exec rm -rf {} \;
 ~~~
+### 监控
+- 查看内存
+~~~
+free -h
+~~~
+- 每2秒监控一次内存
+~~~
+watch -n 2 -d free
+~~~
+- vmstat命令监视虚拟内存使用情况()vmstat是Virtual Meomory Statistics（虚拟内存统计）的缩写，可对操作系统的虚拟内存、进程、CPU活动进行监视
+~~~
+vmstat 5 
+~~~
