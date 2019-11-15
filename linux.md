@@ -92,3 +92,13 @@ https://blog.csdn.net/lhf_tiger/article/details/7102753
 vim 文件
 :set nu
 ~~~
+
+
+### 查找并删除
+~~~
+find *.tmp -exec rm -rf {} \;
+~~~
+- 删除4分钟前的后缀为.tmp的文件（-mtime n  n天前）
+~~~
+find *.tmp -mmin 4 -exec rm -rf {} \;
+~~~
