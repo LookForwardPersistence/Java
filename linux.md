@@ -115,3 +115,14 @@ watch -n 2 -d free
 ~~~
 vmstat 5 
 ~~~
+
+- 不用crontab实现定时任务
+~~~
+# do 指令 脚本; 休眠1秒; done;
+while true ; do sh dl.sh; sleep 1; done;
+
+# dl.sh文件
+#!/bin/sh
+ echo "Auto to move the temp ok!"
+ find *.tmp -mmin 2 -exec rm -rf {} \;
+~~~
