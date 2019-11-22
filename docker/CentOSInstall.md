@@ -16,6 +16,7 @@ iptables -P FORWARD ACCEPT
 swapoff -a
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ~~~
+### docker ce 安装（CentOS）
 - 指定阿里云镜像安装
 ~~~
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
@@ -25,4 +26,13 @@ curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 yum install epel-release
 yum install container-selinux
+~~~
+### docker-compose安装
+~~~
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+#测试
+docker-compose --version
 ~~~
