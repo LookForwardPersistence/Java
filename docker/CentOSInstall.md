@@ -20,3 +20,9 @@ sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ~~~
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 ~~~
+- 如遇selinux版本低的问题
+~~~
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+yum install epel-release
+yum install container-selinux
+~~~
