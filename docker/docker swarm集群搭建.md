@@ -7,3 +7,7 @@ docker swarm init --advertise-addr ip
 ~~~
 
 ~~~
+- 获取token
+~~~
+docker swarm join-token manager
+~~~
