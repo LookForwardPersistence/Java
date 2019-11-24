@@ -26,6 +26,18 @@ docker service create --replicas 3 -p 宿主端口:容器端口 --name 容器名
 eg：
 docker service create --replicas 3 -p 80:80 --name nginx nginx:latest
 ~~~
+- 当前swarm集群运行的服务
+~~~
+docker service ls
+~~~
+- 查看某个服务的详情
+~~~
+docker service ps 镜像名
+~~~
+- 查看某个服务的日志
+~~~
+docker service logs 镜像名
+~~~
 ### 安装问题
 ~~~
 问题：Error response from daemon: --live-restore daemon configuration is incompatible with swarm mode
