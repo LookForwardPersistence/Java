@@ -15,6 +15,10 @@ docker swarm join-token manager
 ~~~
 docker node ls
 ~~~
+- 升级其他节点作为master 节点
+~~~
+docker node promote 节点hostname
+~~~
 ### 安装问题
 ~~~
 问题：Error response from daemon: --live-restore daemon configuration is incompatible with swarm mode
