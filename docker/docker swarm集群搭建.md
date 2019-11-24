@@ -19,6 +19,13 @@ docker node ls
 ~~~
 docker node promote 节点hostname
 ~~~
+- swarm 运行服务
+~~~
+docker service create --replicas 3 -p 宿主端口:容器端口 --name 容器名称 容器:版本
+
+eg：
+docker service create --replicas 3 -p 80:80 --name nginx nginx:latest
+~~~
 ### 安装问题
 ~~~
 问题：Error response from daemon: --live-restore daemon configuration is incompatible with swarm mode
