@@ -51,6 +51,14 @@ docker pull portainer/portainer
 #安装
 docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 ~~~
+- 扩容 命令方式--replicas
+~~~
+docker service create --replicas 3 -p 80:80 --name nginx nginx:latest
+或
+docker service create -p 80:80 --name nginx nginx:latest
+docker serivce scale nginx=3
+~~~
+- portainer方式
 ### 安装问题
 ~~~
 问题：Error response from daemon: --live-restore daemon configuration is incompatible with swarm mode
