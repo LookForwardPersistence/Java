@@ -11,6 +11,10 @@ docker swarm init --advertise-addr ip
 ~~~
 docker swarm join-token manager
 ~~~
+- 在master节点查看集群
+~~~
+docker node ls
+~~~
 ### 安装问题
 ~~~
 问题：Error response from daemon: --live-restore daemon configuration is incompatible with swarm mode
