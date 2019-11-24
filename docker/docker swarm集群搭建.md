@@ -38,6 +38,19 @@ docker service ps 镜像名
 ~~~
 docker service logs 镜像名
 ~~~
+- swarm集群中移除服务
+~~~
+docker service rm 镜像名
+~~~
+- portainer 集群运行
+~~~
+#查看portainer镜像
+docker search portainer
+#拉取镜像
+docker pull portainer/portainer
+#安装
+docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+~~~
 ### 安装问题
 ~~~
 问题：Error response from daemon: --live-restore daemon configuration is incompatible with swarm mode
