@@ -66,3 +66,25 @@ docker serivce scale nginx=3
 1、/etc/docker/daemon.json 中的“live-store”属性改为false
 2、重启docker：sudo systemctl restart docker
 ~~~
+
+- 示例 docker-compose.yaml
+~~~
+version: '3'
+services:
+  zk_server:
+    image: zookeeper
+    ports:
+      - 2181:2181
+  dubbo_admin:
+    image: dockerdawn2/dubbo-admin:v1
+    links:
+     - zk_server:zookeeper
+    depends_on:
+     - zk_server
+    ports:
+     - 9001:8080
+~~~
+- swarm 启动服务
+~~~
+docker stack deploy --compose-file docker-compose.yml STACK
+~~~
