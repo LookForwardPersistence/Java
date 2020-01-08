@@ -38,9 +38,10 @@ spring.cloud.sentinel.datasource.ds.nacos.serverAddr=IP:8848
 spring.cloud.sentinel.datasource.ds.nacos.dataId=${spring.application.name}-sentinel
 #nacos存储规则groupId
 spring.cloud.sentinel.datasource.ds.nacos..groupId=DEFAULT_GROUP
-
+#流控 flow，系统保护 system，访问控制 authority ，热点规则 param_flow,熔断降级规则 degrade
 spring.cloud.sentinel.datasource.ds.nacos.ruleType=flow
 
+https://github.com/alibaba/Sentinel/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8
 ~~~
 
 ### maven
