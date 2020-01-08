@@ -83,3 +83,48 @@ public class ConsistentHash {
     }
 }
 ~~~
+### 滑动窗口限流算法
+~~~
+ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(WindowLimiter.class);
+    private LoadingCache<Long,AtomicLong> counter = CacheBuilder.newBuilder()
+            .expireAfterWrite(10, TimeUnit.SECONDS)
+            .build(new CacheLoader<Long, AtomicLong>() {
+                @Override
+                public AtomicLong load(Long aLong) throws Exception {
+                    return new AtomicLong(0);
+                }
+            });
+    private ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
+    //限流阈值
+    private long limit =20;
+
+    public void sildeWindow(){
+        logger.info("Begin to log");
+        logger.error("Begin to log");
+        log.info("Begin to Slide");
+        scheduledExecutorService.scheduleWithFixedDelay(() -> {
+            try {
+                long time = System.currentTimeMillis() / 1000;
+                //每秒发送随机数量请求
+                int reqs = (int) (Math.random() * 5 + 1);
+                counter.get(time).addAndGet(reqs);
+                long nums = 0;
+                //time windows 5 s
+                for (int i = 0; i < 5; i++) {
+                    nums += counter.get(time - 1).get();
+                }
+                log.info("time=" + time + ",nums=" + nums);
+                if (nums > limit) {
+                    log.info("限流了，nums=" + nums);
+                    logger.info("限流了，nums=" + nums);
+                    logger.error("限流了，nums=" + nums);
+                }
+
+            } catch (Exception ex) {
+                log.error("error:" + ex);
+            } finally {
+                log.info("finally");
+            }
+        }, 5000, 1000, TimeUnit.MILLISECONDS);
+    }
+~~~
