@@ -128,3 +128,28 @@ public class ConsistentHash {
         }, 5000, 1000, TimeUnit.MILLISECONDS);
     }
 ~~~
+### 滑动窗口算法实现2
+~~~
+ public static void main(String[] args) {
+       long[] arr = {1,2,3,4};
+        System.out.println("数组中任意的k个元素之和的最大值："+getSlidingSum(arr,3));
+    }
+
+    static long getSlidingSum(long[] arr,int k){
+
+        if(arr==null||arr.length< k){
+            return -1;
+        }
+        long maxSum=0;
+        for(int i=0;i<k;i++){
+            maxSum+=arr[i];
+        }
+
+        long sum=maxSum;
+        for (int n=k;n<arr.length;n++){
+            sum+=arr[n]-arr[n-k];
+            maxSum=Math.max(sum,maxSum);
+        }
+        return maxSum;
+    }
+~~~
