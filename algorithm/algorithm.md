@@ -153,3 +153,19 @@ public class ConsistentHash {
         return maxSum;
     }
 ~~~
+### 旋转数最小值（二分查找法）
+~~~
+static int getMin(int[] arr){
+        int  low=0,height=arr.length-1;
+        while (low<height) {
+            if (arr[low] < arr[height]) return arr[low];
+            int mind = (low+height)/2;
+            if(arr[mind]>arr[height]){
+                low=mind+1;
+            }else {
+                height=mind;
+            }
+        }
+        return arr[low];
+    }
+~~~
