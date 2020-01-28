@@ -1,0 +1,57 @@
+### java client
+- pom
+~~~
+     <!--es client-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>transport</artifactId>
+            <version>6.5.4</version>
+        </dependency>
+~~~
+- demo
+~~~
+ public static void main(String[] args) throws UnknownHostException {
+        //构建配置信息
+        Settings settings = Settings.builder()
+                .put("cluster.name","es-application")
+                .put("client.transport.sniff",true)
+                .build();
+        //构建client
+        TransportClient client = new PreBuiltTransportClient(settings);
+        //指定ip 端口
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName("localhost"),9300));
+        try{
+            //构建请求
+            SearchRequest request=new SearchRequest();
+            request.indices("songs_v1");
+            request.types("popular");
+
+            //search信息
+            SearchSourceBuilder search = new SearchSourceBuilder();
+            search.query(QueryBuilders.matchQuery("lyris","on"));
+            search.timeout(new TimeValue(60, TimeUnit.SECONDS));
+
+            //search放入request
+            request.source(search);
+            //执行请求
+            SearchResponse response = client.search(request).get();
+            //获取命中文档
+            SearchHits hits = response.getHits();
+            SearchHit[] hitArr=hits.getHits();
+            //处理文档
+            for (SearchHit hit:hitArr){
+                //处理元信息
+                System.out.println(hit.getType()+","+hit.getScore());
+                //打印原文档
+                String sourceString = hit.getSourceAsString();
+                System.out.println(sourceString);
+            }
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }finally {
+            client.close();
+        }
+    }
+~~~
