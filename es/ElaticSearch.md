@@ -13,5 +13,5 @@ elasticsearch-jdbc
 ### ELK ELASTICSEARCH LOSDASH KIBABA
 ~~~
 beats
-filebeat
+FileBeat
 ~~~
