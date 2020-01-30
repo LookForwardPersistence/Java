@@ -14,4 +14,6 @@ elasticsearch-jdbc
 ~~~
 beats
 FileBeat
+
+架构优化： Beat+Kafka+Logstash+elasticSearch+Kibaba
 ~~~
