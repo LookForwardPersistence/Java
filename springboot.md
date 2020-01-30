@@ -59,7 +59,7 @@ spring.thymeleaf.mode=HTML5
 
 ## CAP理论
 ~~~
-Consistency 一致性
+Consistency 一致性（paxos算法）
    严格一致性（strict Consistency）(强)
    顺序一致性（Sequential Consitency）（弱）
    最总一致性（Eventual Consitency）(弱)
@@ -67,4 +67,9 @@ Availablity 可用性
 Partition tolerance 分区容错性
 不能同时满足，原因：一致性容错同步时不可用（保证一致性损失可用性）
 ~~~
-
+### BASE理论
+~~~
+基本可用（Basically Available）：可能给是部分功能不可用或响应时间延长
+软状态（Soft state）:不同系统/节点之间，数据存在过度状态
+最终一致性（Eventual Consistency）:经过系统内部协调机制，最终所有节点保持一致（分布式系统一致并不一定指数据保持一样）
+~~~
