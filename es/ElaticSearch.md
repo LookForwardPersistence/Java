@@ -10,7 +10,7 @@ logstatsh-input-jdbc
 go-mysql-elasticsearch
 elasticsearch-jdbc
 ~~~
-### ELK ELASTICSEARCH LOSDASH KIBABA
+### ELK ELASTICSEARCH LOGSTASH KIBABA
 ~~~
 beats
 FileBeat
