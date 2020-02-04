@@ -52,3 +52,45 @@ You can initialize this repository with code from a Subversion, Mercurial, or TF
 git status
 git checkout 路径/需要撤销的文件
 ~~~
+
+
+### 基本操作
+~~~
+创建本地分支：
+git branch "分支名称"
+
+删除本地分支：
+git branch -d "分支名称"
+
+在已有分支创建分支
+git checkout -b 分支名称
+
+切换分支：
+git checkout 分支名称
+
+合并分支到主干
+0、（master） git push 获取最新
+1、（master）git merge dev--squash 意思是把dev分支不同于master分支的所有文件罗列出来(无论有几个提交)，然后就可以方便的git commit提交
+2、（mater）git commit 提交合并
+3、（mater）git push origin master
+
+预览异常：
+切换到master分支允许
+
+查看提交信息
+git log
+
+撤销commit
+git reset --hard 提交id(硬盘信息也会被撤销)
+git reset --soft commitID(磁盘信息不回撤销，只撤销commit)
+
+如果不小执行 --hard
+
+查看标志信息
+git --reflog
+
+git reset --hard commitId
+
+撤销add
+git reset HEAD
+~~~
