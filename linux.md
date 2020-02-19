@@ -1,6 +1,7 @@
 ### 新增linux服务账号密码
 - useradd 用户名
 - passwd 密码
+- 修改密码 passwd 用户名
 ### 查看系统版本
 - cat /proc/version
 - cat /etc/redhat-release
