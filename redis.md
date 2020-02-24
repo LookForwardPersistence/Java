@@ -28,7 +28,10 @@ appendonly yes
 masterauth password
 requirepass password
 ~~~
-
+### 查看安装目录
+~~~
+ls -l /proc/进程号/cwd
+~~~
 #### redis 配置
 
 - 运行远程访问设置
