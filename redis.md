@@ -1,3 +1,13 @@
+### redis 安装
+~~~
+$ wget http://download.redis.io/releases/redis-3.0.6.tar.gz
+$ tar xzf redis-3.0.6.tar.gz
+$ cd redis-3.0.6
+$ make
+src/redis-service       --启动服务
+src/redis-cli            --开启编辑命令
+~~~
+
 #### redis 配置
 
 - 运行远程访问设置
