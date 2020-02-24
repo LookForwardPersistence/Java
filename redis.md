@@ -7,6 +7,7 @@ $ make
 src/redis-service redis.conf      --后台启动服务
 src/redis-cli            --开启编辑命令
 
+关闭服务：redis-cli -h ip -p 端口 -a 密码 shutdown
 
 
 #开启线程守护,后台启动
