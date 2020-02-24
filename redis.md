@@ -4,8 +4,28 @@ $ wget http://download.redis.io/releases/redis-3.0.6.tar.gz
 $ tar xzf redis-3.0.6.tar.gz
 $ cd redis-3.0.6
 $ make
-src/redis-service       --启动服务
+src/redis-service redis.conf      --后台启动服务
 src/redis-cli            --开启编辑命令
+
+
+
+#开启线程守护,后台启动
+daemonize yes
+#redis启动端口设置为7001
+port  7001
+#关闭保护模式,可以远程访问redis
+protected-mode no
+#启用redis群集支持
+cluster-enabled yes
+#Redis群集节点不可用的最长时间
+cluster-node-timeout 5000
+#集群配置文件,官网上说:请注意，尽管有此选项的名称，但这不是用户可编辑的配置文件. 但是实际上我还是编辑了它
+cluster-config-file nodes.conf
+#开启AOF日志
+appendonly yes
+#设置你的密码,当然你也可以不设置,直接注释掉,那么你的redis在关闭保护模式的情况下,任何人都可以进行操作了.
+masterauth password
+requirepass password
 ~~~
 
 #### redis 配置
