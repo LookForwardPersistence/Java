@@ -146,3 +146,101 @@ StringRedisSerializer 替换  Jackson2JsonRedisSerializer
         return template;
     }
 ~~~
+
+### Spring 集成redis
+~~~
+spring4.3.2
+ <!--redis-->
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-redis</artifactId>
+        <version>1.5.2.RELEASE</version>
+      </dependency>
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>2.9.3</version>
+      </dependency>
+      
+  spring-redis.xml
+  
+  <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--引入配置文件-->
+    <context:property-placeholder location="redis.properties" ignore-unresolvable="true"></context:property-placeholder>
+    <!-- jedis 配置 -->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+    </bean>
+
+    <!-- redis服务器中心 -->
+    <bean id="connectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="poolConfig" />
+        <property name="port" value="${redis.port}" />
+        <property name="hostName" value="${redis.host}" />
+         <property name="password" value="${redis.pwd}" />
+        <property name="database" value="${redis.database}"/>
+        <property name="timeout" value="${redis.timeout}"></property>
+    </bean>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="keySerializer">
+            <bean
+                    class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="valueSerializer">
+            <bean
+                    class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property>
+    </bean>
+    <!-- 配置缓存 -->
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg ref="redisTemplate" />
+    </bean>
+</beans>
+
+
+redis.properties
+
+redis.host=ip
+redis.port=6379
+redis.pwd=passwar
+redis.database=0
+redis.timeout=10000
+redis.userPool=true
+#最大空闲连接数
+redis.pool.maxIdle=500
+#最小空闲连接数, 默认0
+redis.pool.minidle=0
+#最大连接数, 默认8个
+redis.pool.maxTotal=10000
+#获取连接时的最大等待毫秒数(如果设置为阻塞时BlockWhenExhausted),如果超时就抛异常, 小于零:阻塞不确定的时间,  默认-1
+redis.pool.maxWaitMillis=10000
+#资源池中资源最小空闲时间(单位为毫秒)，达到此值后空闲资源将被移除  默认1800000毫秒(30分钟)
+redis.pool.minEvictableTimeMillis=30000
+#每次逐出检查时 逐出的最大数目 如果为负数就是 : 1/abs(n), 默认3
+redis.pool.numTestsPerEvictionRun=10
+#对象空闲多久后逐出, 当空闲时间>该值 且 空闲连接>最大空闲数 时直接逐出,不再根据MinEvictableIdleTimeMillis判断  (默认逐出策略)
+redis.pool.numTestsPerEvictionRunMills=10000
+#空闲资源的检测周期(单位为毫秒) 如果为负数,则不运行逐出线程, 默认-1
+redis.pool.timeBetweenEvictionRunsMillis=300000
+#在获取连接的时候检查有效性, 默认false
+redis.pool.testOnBorrow=true
+#
+redis.pool.testOnReturn=true
+#是否开启空闲资源监测, 默认false
+redis.pool.testWhileIdle=true
+
+redis.enableTransactionSupport=true
+~~~
