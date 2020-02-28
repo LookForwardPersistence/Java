@@ -3,10 +3,15 @@
 ### 版本
 ~~~
  <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
-        </dependency>
+     <groupId>org.apache.httpcomponents</groupId>
+     <artifactId>httpclient</artifactId>
+     <version>4.5.2</version>
+ </dependency>
+ <dependency>
+     <groupId>org.apache.httpcomponents</groupId>
+     <artifactId>httpmime</artifactId>
+     <version>4.5.5</version>
+ </dependency>
 ~~~
 ### 工具类
 ~~~
@@ -18,7 +23,7 @@ public class HttpClientUtils {
     * @decription get请求
     * @param url 接口地址
     * @return java.lang.String 返回json字符串
-    * @author fanqianghua
+    * @author Dawn
     * @date 2019/8/6
     */
     public static String sendGet(String url) throws Exception {
@@ -56,7 +61,7 @@ public class HttpClientUtils {
     * @decription post 请求
     * @param url 接口服务地址
     * @return java.lang.String
-    * @author fanqianghua
+    * @author Dawn
     * @date 2019/8/6
     */
     public static  List<Cookie> getCookies(String url) throws Exception {
@@ -134,7 +139,7 @@ public class HttpClientUtils {
     * @param data json字符串
     * @param key  json字符串的key属性
     * @return java.lang.String 返回值
-    * @author fanqianghua
+    * @author Dawn
     * @date 2019/8/6
     */
     public static String getQueryValueByKey(String data,String key){
@@ -148,6 +153,115 @@ public class HttpClientUtils {
         return jsonObject.getString(key);
     }
 }
+
+public static InvokeResult sendImageMsg(String uri,String filePath,String fileName) throws IOException {
+        CloseableHttpClient httpclient = null;
+        CloseableHttpResponse response = null;
+        try {
+            httpclient = HttpClients.createDefault();
+            HttpPost post = new HttpPost(uri);
+            HttpEntity dataEntity = getMultiFileEntity(filePath,fileName);//File文件格式上传
+            post.setEntity(dataEntity);
+            response = httpclient.execute(post);
+            return InvokeResult.success( EntityUtils.toString(response.getEntity()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return InvokeResult.failure(e.getMessage());
+        } finally {
+            if(response!=null){
+                response.close();
+            }
+            if(httpclient!=null){
+                httpclient.close();
+            }
+        }
+    }
+
+    /**
+     * File文件格式上传
+     */
+    public static HttpEntity getMultiFileEntity(String filePath,String fileName) {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        File file = new File(filePath);
+        builder.addBinaryBody("file", file, ContentType.DEFAULT_BINARY, fileName);
+        return builder.build();
+    }
+
+    /**
+     * File文件格式上传（缺省）
+     */
+    public HttpEntity getMultiDefaultFileEntity(String filePath) {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        File file = new File(filePath);
+        builder.addBinaryBody("file", file);
+        return builder.build();
+    }
+
+    /**
+     * byte数组格式上传
+     */
+    public HttpEntity getMultiArrayEntity(String filePath) {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        byte[] byteArr = getFileArr(filePath);
+        builder.addBinaryBody("file", byteArr, ContentType.DEFAULT_BINARY, "photoArr.jpg");
+        return builder.build();
+    }
+
+    /**
+     * byte数组格式上传（缺省）
+     */
+    public HttpEntity getMultiDefaultArrayEntity(String filePath) {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        byte[] byteArr = getFileArr(filePath);
+        builder.addBinaryBody("file", byteArr);
+        return builder.build();
+    }
+
+    public byte[] getFileArr(String filePath) {
+        try {
+            File file = new File(filePath);
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(1000);
+            byte[] b = new byte[1000];
+            int n;
+            while ((n = fis.read(b)) != -1) {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            bos.close();
+            return bos.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
+    }
+
+    /**
+     *  文件流格式上传
+     * @param filePath 文件路径
+     * @param fileName "photoStream.jpg"
+     * @return getMultiStreamEntity
+     * @author Dawn
+     * @date 2020/2/28
+     */
+    public HttpEntity getMultiStreamEntity(String filePath,String fileName) throws FileNotFoundException {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        File file = new File(filePath);
+        InputStream stream = new FileInputStream(file);
+        builder.addBinaryBody("file", stream, ContentType.DEFAULT_BINARY, fileName);
+        return builder.build();
+    }
+
+    /**
+     * 文件流格式上传（缺省）
+     */
+    public HttpEntity getMultiDefaultStreamEntity(String filePath) throws FileNotFoundException {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        File file = new File(filePath);
+        InputStream stream = new FileInputStream(file);
+        builder.addBinaryBody("file", stream);
+        return builder.build();
+    }
 ~~~
 
 ### InvokeResult
