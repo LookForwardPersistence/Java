@@ -26,3 +26,8 @@ source /ect/profile
 ~~~
 mvn install:install-file -DgroupId=包名  -DartifactId=artifactId -Dversion=版本 -Dpackaging=jar -Dfile=jar包文件
 ~~~
+
+### 导出所有依赖jar
+~~~
+mvn dependency:copy-dependencies -DoutputDirectory=lib   -DincludeScope=compile
+~~~
