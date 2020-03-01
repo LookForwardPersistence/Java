@@ -73,3 +73,8 @@ curl 127.0.0.1:5000/v2/_catlog
     }
 }
 ~~~
+
+- 重启docker
+~~~
+systemctl retart docker
+~~~
