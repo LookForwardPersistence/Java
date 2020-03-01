@@ -13,21 +13,26 @@ docker login
 docker search 镜像名
 docker pull 镜像名
 ~~~
+- 查看本地镜像
+~~~
+docker images
+~~~
 - 推送镜像
 ~~~
 #重新给镜像仓库命名
-docker tag 容器Id 新名称
-docker push 镜像（镜像格式：用户名/镜像名）
+docker tag 容器Id 新名称（镜像格式：用户名/镜像名）
+docker push 镜像（镜像格式：用户名/镜像名:版本）
 ~~~
 - 退出登录
 ~~~
 docker logout
 ~~~
 ### 搭建私有仓库
-- 安装运行docker-registry
+
+- 安装运行docker-registry，直接运行命令
 ~~~
 #默认情况下，仓库会被创建在容器的/var/lib/registry目录下，可以通过-v参数来镜像文件存放在本地指定路径
-docker run --namge registry -d -p 5000:5000 -restart=always -v /usr/local/data/registry:/var/lib/registry regitstry
+docker run --name registry -d -p 5000:500 --restart=always -v /opt/data/registry:/var/lib/registry registry
 ~~~
 - 在私有仓库上传、搜索、下载镜像
 ~~~
