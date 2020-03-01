@@ -54,3 +54,22 @@ curl 127.0.0.1:5000/v2/_catlog
   ]
 }
 ~~~
+
+- daemon.json
+~~~
+[root@EAk8sT01 docker]# vim daemon.json
+{
+    "registry-mirrors": ["https://hub-mirror.c.163.com", "https://docker.mirrors.ustc.edu.cn"],
+    "insecure-registries": ["ip:5000"],
+    "max-concurrent-downloads": 20,
+    "live-restore": false,
+    "max-concurrent-uploads": 10,
+    "debug": true,
+    "data-root": "/data/k8s/docker/data",
+    "exec-root": "/data/k8s/docker/exec",
+    "log-opts": {
+      "max-size": "100m",
+      "max-file": "5"
+    }
+}
+~~~
