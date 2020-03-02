@@ -248,3 +248,10 @@ docker run --rm -it -v ~/settings/logstash.yml:/usr/share/logstash/config/logsta
 ```
 docker-compose -f docker-compose-elasticsearch.yml up -d
 ```
+
+### docker集群部署nacos
+~~~
+git clone https://github.com/nacos-group/nacos-docker.git
+cd nacos-docker
+docker-compose -f example/cluster-hostname.yaml up 
+~~~
