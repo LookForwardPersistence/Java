@@ -99,4 +99,57 @@ public static void main(String[] args) throws InterruptedException {
         }
         return releaseFlag;
     }
+    
+    
+     /**
+    *  服务器网络是通
+    * @param ipAddress ip地址
+    * @return ping
+    * @date 2020/3/4
+    */
+   public static boolean ping(String ipAddress) throws IOException {
+       int timeout=5000;
+       boolean status = InetAddress.getByName(ipAddress).isReachable(timeout);
+       return status;
+   }
+
+   /**
+    *  应用服务是否存活
+    * @param uri http://ip:port
+    * @return isSurvive
+    * @date 2020/3/4
+    */
+   public static boolean isSurvive(String uri) {
+       boolean isSurvive=false;
+       if(StringUtils.isEmpty(uri)){
+           isSurvive=false;
+       }
+       String[] uriArr=uri.split("//");
+       if(uriArr.length>1){
+          String[] ipArr= uriArr[1].split(":");
+          if(ipArr.length>1){
+              String ip=ipArr[0];
+              int port= Integer.parseInt(ipArr[1]);
+              Socket socket = new Socket();
+              try {
+                  socket.connect(new InetSocketAddress(ip,port));
+                  isSurvive=true;
+              } catch (IOException e) {
+//                 throw new Exception(e.getMessage());
+                  isSurvive=false;
+              }finally {
+                  try {
+                      socket.close();
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }else {
+              isSurvive=false;
+          }
+       }else {
+           isSurvive=false;
+       }
+       return isSurvive;
+   }
 ~~~
