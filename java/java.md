@@ -102,7 +102,7 @@ public static void main(String[] args) throws InterruptedException {
     
     
      /**
-    *  服务器网络是通
+    *  服务器网络是否通验证
     * @param ipAddress ip地址
     * @return ping
     * @date 2020/3/4
