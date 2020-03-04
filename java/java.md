@@ -73,3 +73,29 @@ public static void main(String[] args) throws InterruptedException {
                 );
     }
 ~~~
+
+### 定时器
+~~~
+ /**
+     *  定时器,转入执行时间点
+     * @param actionTime 如2020-03-05 07:30:00
+     * @return release
+     * @date 2020/3/4
+     */
+    public static boolean release(String actionTime) throws InterruptedException, ParseException {
+        boolean releaseFlag=false;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date totalTime= dateFormat.parse(actionTime);
+        long actTime=dateFormat.parse(actionTime).getTime();
+        while(true){
+            System.err.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(totalTime));
+            Thread.sleep(1000);//休眠1秒
+            totalTime = new Date(totalTime.getTime()-1000);
+            if(System.currentTimeMillis()>=actTime){
+                releaseFlag=true;
+                break;
+            }
+        }
+        return releaseFlag;
+    }
+~~~
