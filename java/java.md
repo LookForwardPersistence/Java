@@ -82,15 +82,16 @@ public static void main(String[] args) throws InterruptedException {
      * @return release
      * @date 2020/3/4
      */
-    public static boolean release(String actionTime) throws InterruptedException, ParseException {
+     public static boolean release(String actionTime) throws InterruptedException, ParseException {
         boolean releaseFlag=false;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date totalTime= dateFormat.parse(actionTime);
+//        Date totalTime= dateFormat.parse(actionTime);
         long actTime=dateFormat.parse(actionTime).getTime();
         while(true){
-            System.err.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(totalTime));
+            Date currentDateTime=new Date();
+            System.err.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(currentDateTime));
             Thread.sleep(1000);//休眠1秒
-            totalTime = new Date(totalTime.getTime()-1000);
+//            totalTime = new Date(totalTime.getTime()-1000);
             if(System.currentTimeMillis()>=actTime){
                 releaseFlag=true;
                 break;
