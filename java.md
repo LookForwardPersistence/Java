@@ -343,3 +343,8 @@ TA4
 start方法启动线程：真正使用多线程运行
 run方法：普通方法，还是主线程执行
 ~~~
+
+- 随机数获取
+~~~
+ThreadLocalRandom.current().nextInt(总量数);
+~~~
