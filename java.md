@@ -292,3 +292,54 @@ public Workbook getWorkbook(InputStream inputStream,String fileType) {
        }
    }
 ~~~
+
+- Thread.yied()
+~~~
+ Java线程中的Thread.yield( )方法，译为线程让步。顾名思义，就是说当一个线程使用了这个方法之后，它就会把自己CPU执行的时间让掉，
+让自己或者其它的线程运行，注意是让自己或者其他线程运行，并不是单纯的让给其他线程。(使用yield()的目的是让具有相同优先级的线程之间能够适当的轮换执行)
+
+----执行----
+Ta ta = new Ta();
+Tb tb = new Tb();
+ta.setPriority(Thread.NORM_PRIORITY);
+tb.setPriority(Thread.MAX_PRIORITY);
+ta.start();
+tb.start();
+
+------
+class Ta extends Thread{
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("TA"+i);
+            Thread.yield();
+        }
+    }
+}
+
+class Tb extends Thread{
+    public void run(){
+        for (int i = 0; i <5 ; i++) {
+            System.out.println("TB"+i);
+            Thread.yield();
+        }
+    }
+}
+
+---执行结果---
+TB0
+TA0
+TB1
+TB2
+TB3
+TA1
+TB4
+TA2
+TA3
+TA4
+~~~
+- Thread 中start及run方法区别
+~~~
+start方法启动线程：真正使用多线程运行
+run方法：普通方法，还是主线程执行
+~~~
