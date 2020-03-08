@@ -48,3 +48,22 @@ com.mysql.cj.jdbc.Driver
 %Y	年，4 位
 %y	年，2 位
 ~~~
+### Mysql优化
+- 查看最大连接数
+~~~
+show VARIABLES like 'MAX_CONNECTIONS'
+~~~
+- 查看最大连接数据
+~~~
+show global status like 'MAX_USED_CONNECTIONS';
+~~~
+- 结论
+~~~
+比较理想的设置是：
+Max_used_connections / max_connections * 100% ≈ 85%
+最大连接数占上限连接数的85%左右，如果发现比例在10%以下，MySQL服务器连接上限就设置得过高了。
+~~~
+- 通过threads-connections查看当前分配的线程数量
+~~~
+show status like '%thread%';
+~~~
