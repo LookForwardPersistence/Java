@@ -93,4 +93,6 @@ http协议是无状态的是说http协议不记录历史的请求，就像指数
 - 线程池原理
 - mq消息 
 - 分库分布有哪些策略、如何实现
-- 
+
+
+https://blog.csdn.net/u011665991/article/details/89206148?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task#%E4%B8%80%E3%80%81Java%20%E5%9F%BA%E7%A1%80
