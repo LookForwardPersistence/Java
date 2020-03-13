@@ -67,6 +67,9 @@ http协议是无状态的是说http协议不记录历史的请求，就像指数
 - 直奔重点
 - mq选型依据
 - redssion实现原理
+~~~
+https://www.cnblogs.com/kiko2014551511/p/11527108.html
+~~~
 - sentinel原理 如何做资源隔离
 - 数据库索引原理
 ~~~
