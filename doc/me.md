@@ -172,4 +172,11 @@ b.掌握Spring、SpringMvc、Springboot、Mybatis等开源框架，有较强的�
 c.掌握Redis、Ngnix、Tomcat部署、优化参数配置；
 d.熟悉公众号、服务号和小程序开发；
 e.熟悉消息中间件(ActiveMQ、RabbitMQ等)、事务处理中间件、数据访问中间件(ODBC)、工作流中间件(JBPM、Activiti等)；
+
+a.满足（1）的所有要求；
+b.能够独立进行项目的大部分开发工作,有系统进度把控能力；
+c.熟悉高并发、高性能的分布式系统的设计、应用及调优，如缓存技术、网站优化、服务器优化、集群技术处理、网站负载均衡、系统性能调优、安全防御等技术；
+d.精通Java体系，Gradle，Maven，Git等常用工具的使用, 熟悉JVM。
+
+http://www.nnjr.co/html/3760/816.html
 ~~~
