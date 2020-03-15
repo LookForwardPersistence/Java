@@ -164,3 +164,12 @@ RTREE在mysql很少使用，仅支持geometry数据类型，支持该类型的�
 
 
 https://blog.csdn.net/u011665991/article/details/89206148?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task#%E4%B8%80%E3%80%81Java%20%E5%9F%BA%E7%A1%80
+
+
+~~~
+a.精通Javaee、Web，具有扎实的算法及数据结构功底；
+b.掌握Spring、SpringMvc、Springboot、Mybatis等开源框架，有较强的源码研究理解能力；
+c.掌握Redis、Ngnix、Tomcat部署、优化参数配置；
+d.熟悉公众号、服务号和小程序开发；
+e.熟悉消息中间件(ActiveMQ、RabbitMQ等)、事务处理中间件、数据访问中间件(ODBC)、工作流中间件(JBPM、Activiti等)；
+~~~
