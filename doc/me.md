@@ -1,4 +1,5 @@
 https://iqtest.com/quiz/iq-test/
+16pf http://www.apesk.com/16pf/#checkboxjuanbiao
 ~~~
 mysql性能优化
 1、用什么指令查看mysql进程
