@@ -1,3 +1,4 @@
+https://iqtest.com/quiz/iq-test/
 ~~~
 mysql性能优化
 1、用什么指令查看mysql进程
