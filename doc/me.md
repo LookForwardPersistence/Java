@@ -1281,6 +1281,13 @@ RTREE在mysql很少使用，仅支持geometry数据类型，支持该类型的�
 https://blog.csdn.net/u011665991/article/details/89206148?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task#%E4%B8%80%E3%80%81Java%20%E5%9F%BA%E7%A1%80
 
 
+- JavaCore HeapDump 区别
+~~~
+l  JavaCore是关于CPU的
+JavaCore文件主要保存的是Java应用各线程在某一时刻的运行的位置，即JVM执行到哪一个类、哪一个方法、哪一个行上。它是一个文本文件，打开后可以看到每一个线程的执行栈，以stack trace的显示。通过对JavaCore文件的分析可以得到应用是否“卡”在某一点上，即在某一点运行的时间太长，例如数据库查询，长期得不到响应，最终导致系统崩溃等情况。
+l  HeapDump文件是关于内存的。
+HeapDump文件是一个二进制文件，它保存了某一时刻JVM堆中对象使用情况，这种文件需要相应的工具进行分析，如IBM Heap Analyzer这类工具。这类文件最重要的作用就是分析系统中是否存在内存溢出的情况。
+~~~
 ~~~
 a.精通Javaee、Web，具有扎实的算法及数据结构功底；
 b.掌握Spring、SpringMvc、Springboot、Mybatis等开源框架，有较强的源码研究理解能力；
