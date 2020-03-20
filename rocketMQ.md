@@ -6,6 +6,11 @@
 - git clone https://github.com/apache/rocketmq.git
 -  mvn -Prelease-all -DskipTests clean install -U
 - 配置conf/broker.conf
+
+- 存储说明
+~~~
+https://blog.csdn.net/chongshui129727/article/details/101006218
+~~~
 ~~~
 # broker集群名称
 brokerClusterName = DefaultCluster
