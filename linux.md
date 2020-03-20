@@ -183,3 +183,46 @@ while true ; do sh dl.sh; sleep 1; done;
 解压：rar a FileName.rar 
 压缩：rar e FileName.rar 
 ~~~
+-- vim快捷键
+~~~
+一、查找
+
+查找命令
+
+/pattern<Enter> ：向下查找pattern匹配字符串
+?pattern<Enter>：向上查找pattern匹配字符串
+使用了查找命令之后，使用如下两个键快速查找：
+n：按照同一方向继续查找
+N：按照反方向查找
+
+字符串匹配
+
+pattern是需要匹配的字符串，例如：
+
+1:  /abc<Enter>      #查找abc
+2:  / abc <Enter>    #查找abc单词（注意前后的空格） 
+  除此之外，pattern还可以使用一些特殊字符，包括（/、^、$、*、.），其中前三个这两个是vi与vim通用的，“/”为转义字符。
+
+1:  /^abc<Enter>    #查找以abc开始的行 
+2:  /test$<Enter>    #查找以abc结束的行 
+3:  //^test<Enter>    #查找^tabc字符串
+ 
+二、替换
+
+基本替换
+
+1:  :s/vivian/sky/         #替换当前行第一个 vivian 为 sky
+2:  :s/vivian/sky/g     #替换当前行所有 vivian 为 sky
+3:  :n,$s/vivian/sky/     #替换第 n 行开始到最后一行中每一行的第一个 vivian 为 sky
+4:  :n,$s/vivian/sky/g     #替换第 n 行开始到最后一行中每一行所有 vivian 为 sky
+5:  （n 为数字，若 n 为 .，表示从当前行开始到最后一行）
+6:  
+7:  :%s/vivian/sky/        #（等同于 :g/vivian/s//sky/） 替换每一行的第一个 vivian 为 sky
+8:  :%s/vivian/sky/g    #（等同于 :g/vivian/s//sky/g） 替换每一行中所有 vivian 为 sky
+  可以使用 #或+ 作为分隔符，此时中间出现的 / 不会作为分隔符
+
+1:  :s#vivian/#sky/#         替换当前行第一个 vivian/ 为 sky/
+2:  :%s+/oradata/apras/+/user01/apras1+ （
+3:  使用+ 来 替换 / ）： /oradata/apras/替换成/user01/apras1/
+http://localhost:8080/#/apply/mediaApply?activeNav=1&action=create&location=
+~~~
