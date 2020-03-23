@@ -47,10 +47,10 @@ git push -u origin master
 You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
 ~~~
 
-### 撤销修改
+### 撤销修改(删除)
 ~~~
 git status
-git checkout 路径/需要撤销的文件
+git checkout 路径（文件夹）/需要撤销的文件
 ~~~
 
 
