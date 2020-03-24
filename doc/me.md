@@ -31,6 +31,7 @@ MQ topic类型
 
 httpcomones底层原理
 
+
 什么是分布式
 
 http协议是否有状态
@@ -121,6 +122,8 @@ sentinel中的基准测试也是通过jmh做的
 2、前三个slot（NodeSelectorslot[资源收集路径、以树状结构存储，根据路径来限流降级]/cluterBuilderslot【存储资源统计信息及调用者信息如资源的rt、thread、count、qps等】/staticslot【不同维度的runtime】）负责做统计，后面的slot（Flowslot【根据设计的限流规则及前面的slot统计状态来进行限流】/Authorizationslot[黑白名单控制]/Degradeslot【根据预设规则做熔断降级】/systemslot【根据系统的状态来控制总的入口流量】）负责将根据统计结果结合配置规则进行具体控制，是block请求还是放行。
 
 数据库索引原理
+innodb
+myIsam
 
 Aop原理 实现 应用场景
 (1). AOP面向方面编程基于IoC，是对OOP的有益补充；
@@ -281,13 +284,21 @@ redis 热点数据问题 20w万
 redis客户端使用tcp协议与服务进行交互，通信协议采用resp，自己写协议监听端口，安装
 
 springboot spring优缺点
-spring 原理 springmvc原理 springboot原理
+spring 原理 
+
+springmvc原理 
+
+springboot原理
+
 线程池原理
 1、是否大于核心线程数？
 2、是否大于工作队列数？
 3、是否大于最大线程数？
 其他执行拒绝策略
-
+a、丢任务抛异常
+b、丢任务不抛异常
+c、将最早进入队列的任务删除，之后再加入队列
+d、添加到线程池失败，那么主线程会自己去执行该任务
 mq消息
 
 分库分布有哪些策略、如何实现
@@ -295,11 +306,79 @@ mq消息
 jvm优化
 
 redis存储方式如何实现
+RDB:
+（1）redis根据配置自己尝试去生成rdb快照文件
+（2）fork一个子进程出来
+（3）子进程尝试将数据dump到临时的rdb快照文件中
+（4）完成rdb快照文件的生成之后，就替换之前的旧的快照文件
+dump.rdb，每次生成一个新的快照，都会覆盖之前的老快照
+
+AOF:
+aof方式:由于快照方式是在一定间隔时间做一次的，所以如果redis意外down掉的话，就会丢失最后一次快照后的所有修改。aof比快照方式有更好的持久化性，是由于在使用aof时，redis会将每一个收到的写命令都通过write函数追加到文件中，当redis重启时会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。      
+当然由于os会在内核中缓存write做的修改，所以可能不是立即写到磁盘上。这样aof方式的持久化也还是有可能会丢失部分修改。可以通过配置文件告诉redis我们想要通过fsync函数强制os写入到磁盘的时机。
+Appendfsync no/always/everysec
+no:表示等操作系统进行数据缓存同步到磁盘。性能最好，持久化没有保障。
+Always:表示每次更新操作后手动调用fsync()将数据写到磁盘.每次收到写命令就立即强制写入磁盘，最慢的，但是保障完全的持久化。
+Everysec:表示每秒同步一次.每秒钟强制写入磁盘一次，在性能和持久化方面做了很好的折中。
+
+RDB的问题
+Redis有两种存储方式，默认是snapshot方式，实现方法是定时将内存的快照(snapshot)持久化到硬盘，这种方法缺点是持久化之后如果出现crash则会丢失一段数据。
+
+AOF的问题
+aof即append only mode，在写入内存数据的同时将操作命令保存到日志文件，在一个并发更改上万的系统中，命令日志是一个非常庞大的数据，管理维护成本非常高，恢复重建时间会非常长，这样导致失去aof高可用性本意。另外更重要的是Redis是一个内存数据结构模型，所有的优势都是建立在对内存复杂数据结构高效的原子操作上，这样就看出aof是一个非常不协调的部分。其实aof目的主要是数据可靠性及高可用性.
+如果同时使用RDB和AOF两种持久化机制，那么在redis重启的时候，会使用AOF来重新构建数据，因为AOF中的数据更加完整
+
+RDB和AOF到底该如何选择
+（1）不要仅仅使用RDB，因为那样会导致你丢失很多数据
+（2）也不要仅仅使用AOF，因为那样有两个问题，第一，你通过AOF做冷备，没有RDB做冷备 恢复的速度快; 第二，RDB每次简单粗暴生成数据快照，更加健壮，可以避免AOF这种复杂的备份和恢复机制的bug
+（3）综合使用AOF和RDB两种持久化机制，用AOF来保证数据不丢失，作为数据恢复的第一选择; 用RDB来做不同程度的冷备，在AOF文件都丢失或损坏不可用的时候，还可以使用RDB来进行快速的数据恢复
+另外，要注意的是：如果我们想要redis仅仅作为纯内存的缓存来用，那么可以禁止RDB和AOF所有的持久化机制
 
 redis单线程如何架构满足高可用
+netty selector 线程模型 
 
-oracle与mysql 自增区别
-
+oracle与mysql 区别
+(1) 对事务的提交
+    MySQL默认是自动提交，而Oracle默认不自动提交，需要用户手动提交，需要在写commit;指令或者点击commit按钮
+(2) 分页查询
+    MySQL是直接在SQL语句中写"select... from ...where...limit  x, y",有limit就可以实现分页;而Oracle则是需要用到伪列ROWNUM和嵌套查询
+(3) 事务隔离级别
+      MySQL是read commited的隔离级别，而Oracle是repeatable read的隔离级别，同时二者都支持serializable串行化事务隔离级别，可以实现最高级别的
+    读一致性。每个session提交后其他session才能看到提交的更改。Oracle通过在undo表空间中构造多版本数据块来实现读一致性，每个session
+    查询时，如果对应的数据块发生变化，Oracle会在undo表空间中为这个session构造它查询时的旧的数据块
+    MySQL没有类似Oracle的构造多版本数据块的机制，只支持read commited的隔离级别。一个session读取数据时，其他session不能更改数据，但
+    可以在表最后插入数据。session更新数据时，要加上排它锁，其他session无法访问数据
+(4) 对事务的支持
+    MySQL在innodb存储引擎的行级锁的情况下才可支持事务，而Oracle则完全支持事务
+(5) 保存数据的持久性
+    MySQL是在数据库更新或者重启，则会丢失数据，Oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，可以随时恢复
+(6) 并发性
+    MySQL以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。
+  虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。
+  Oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以Oracle对并
+  发性的支持要好很多。
+(7) 逻辑备份
+    MySQL逻辑备份时要锁定数据，才能保证备份的数据是一致的，影响业务正常的dml使用,Oracle逻辑备份时不锁定数据，且备份的数据是一致
+(8) 复制
+    MySQL:复制服务器配置简单，但主库出问题时，丛库有可能丢失一定的数据。且需要手工切换丛库到主库。
+    Oracle:既有推或拉式的传统数据复制，也有dataguard的双机或多机容灾机制，主库出现问题是，可以自动切换备库到主库，但配置管理较复杂。
+(9) 性能诊断
+    MySQL的诊断调优方法较少，主要有慢查询日志。
+    Oracle有各种成熟的性能诊断调优工具，能实现很多自动分析、诊断功能。比如awr、addm、sqltrace、tkproof等    
+(10)权限与安全
+    MySQL的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。
+    Oracle的权限与安全概念比较传统，中规中矩。
+(11)分区表和分区索引
+    MySQL的分区表还不太成熟稳定。
+    Oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。
+(12)管理工具
+    MySQL管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin， etc)，有一定复杂性。
+    Oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。
+(13)最重要的区别
+    MySQL是轻量型数据库，并且免费，没有服务恢复数据。
+    Oracle是重量型数据库，收费，Oracle公司对Oracle数据库有任何服务
+    
+    
 cpu负载及使用率理解
  cpu负载就是cpu在一段时间内正在处理及等待cpu处理的进程数之和的统计信息，也是cpu使用队列的长度统计信息（超过cpu核数*0.7就是不正常）
  cpu使用率：程序在运行期间实时占用的cpu百分比，cpu使用率反应当前cpu繁忙程度，忽高忽低原因在于占用cpu处理的线程可能处于io等待状态但且未释放进入wait
@@ -422,13 +501,31 @@ JVM
 
 百万连接
 
-resful api 参数放在url上
+resful api 参数放在url路径中的参数
+@PathVariable
 
 nginx配置https
+a、证书生成
+b、配置444接口
+c、http重定向https
+d、检查配置文件 /application/nginx/sbin/nginx -t
+e、加载配置文件 /application/nginx/sbin/nginx -s reload
+
 
 docker查看日志
+$ docker logs [OPTIONS] CONTAINER
+  Options:
+        --details        显示更多的信息
+    -f, --follow         跟踪实时日志
+        --since string   显示自某个timestamp之后的日志，或相对时间，如42m（即42分钟）
+        --tail string    从日志末尾显示多少行日志， 默认是all
+    -t, --timestamps     显示时间戳
+        --until string   显示自某个timestamp之前的日志，或相对时间，如42m（即42分钟）
+  eg:查看指定时间后的日志，只显示最后100行：
+  $ docker logs -f -t --since="2018-02-08" --tail=100 CONTAINER_ID      
 
 主线程停止及通知，如何监听
+
 
 设计模式
 
