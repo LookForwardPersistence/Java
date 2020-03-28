@@ -1,3 +1,22 @@
+### git安装配置
+~~~
+配置：git config --globle user.name='' 
+      git config --globle user.email=''
+1、mkdir 文件夹名
+2、cd 文件夹名    git init
+3、git add 文件夹
+4、git commit -m '描述'
+5、git remote add origin git@github.com:LookForwardPersistence/vueApp.git
+6、git push -u origin master
+
+7、git pull (origin master) 从远程获取最新版本并merge到本地
+
+
+.推送本地分支到远程仓库
+git push --set-upstream origin 分支名
+
+~~~
+
 ### 下载指定git项目的文件
 - 点击进入需要下载的文件目录，拷贝网页的链接地址
 ~~~
