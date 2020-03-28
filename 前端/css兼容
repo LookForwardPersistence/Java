@@ -1,0 +1,8 @@
+~~~
+厂商前缀
+Webkit内核：产要代表为Chrome和Safari，前缀 -webkit-
+Gecko内核：主要代表为Firefox，前缀 -moz-
+Trident内核：主要代表为IE浏览器，前缀 -ms-
+Presto内核：主要代表为Opera，前缀 -o-
+关于厂商前缀的书写，可以参考 CSS 代码规范 属性与值 > 私有属性
+~~~
