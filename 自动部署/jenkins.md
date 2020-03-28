@@ -31,4 +31,10 @@ netstat -ef|grep 端口
 修改linux默认jdk版本：
 [root@EABOMMST bin]# ln -s -f /usr/java/jdk1.8.0_111/jre/bin/java
 [root@EABOMMST bin]# ln -s -f /usr/java/jdk1.8.0_111/bin/javac
+
+linux 生成key ：ssh-keygen -t rsa -C fanqianghua@tcl.com
+
+秘钥路径：/root/.ssh
+
+https://blog.csdn.net/qq_16538827/article/details/81873997#%E5%AE%89%E8%A3%85%E5%92%8Cgitgitlab%E6%8F%92%E4%BB%B6
 ~~~
