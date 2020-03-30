@@ -247,7 +247,7 @@ brokerClusterName=async-rocket-mq-cluster
 brokerName=broker-a
 brokerId=0
 listenPort=10911
-namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+namesrvAddr=ip1:9876;ip2:9876
 deleteWhen=04
 fileReservedTime=48
 brokerRole=ASYNC_MASTER
@@ -263,7 +263,7 @@ brokerClusterName=async-rocket-mq-cluster
 brokerName=broker-b
 brokerId=1
 listenPort=10921
-namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+namesrvAddr=ip:9876;ip:9876
 deleteWhen=04
 fileReservedTime=48
 brokerRole=SLAVE
@@ -273,7 +273,7 @@ storePathCommitLog=/usr/local/rocketMQ/store/commitlog-b-s
 autoCreateSubcriptionGroup=true
 autoCreateTopicEnable=true
 ~~~
-- 10.190.20.121 服务器
+- ip 服务器
 ~~~
 #broker-b.properties a主节点
 
@@ -282,7 +282,7 @@ brokerClusterName=async-rocket-mq-cluster
 brokerName=broker-b
 brokerId=0
 listenPort=10911
-namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+namesrvAddr=ip1:9876;ip2:9876
 deleteWhen=04
 fileReservedTime=48
 brokerRole=ASYNC_MASTER
@@ -299,7 +299,7 @@ brokerClusterName=async-rocket-mq-cluster
 brokerName=broker-a
 brokerId=1
 listenPort=10921
-namesrvAddr=10.198.5.167:9876;10.190.20.121:9876
+namesrvAddr=ip1:9876;ip2:9876
 deleteWhen=04
 fileReservedTime=48
 brokerRole=SLAVE
