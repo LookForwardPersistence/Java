@@ -283,3 +283,8 @@ http://localhost:8080/#/apply/mediaApply?activeNav=1&action=create&location=
 程序
 # rpm -qa                # 查看所有安装的软件包
 ~~~
+
+- 查看端口是否被占用
+~~~
+sudo netstat -anp | grep 端口
+~~~
