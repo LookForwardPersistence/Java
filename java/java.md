@@ -158,3 +158,16 @@ public static void main(String[] args) throws InterruptedException {
      Gson gson = new Gson();
      gson.fromJson(jsonString,clasz)
 ~~~
+- list转为数组
+~~~
+ int size = command.getAccounts().size();
+     messageCommand.setAccounts((String[]) command.getAccounts().toArray(new String[size]));
+~~~
+- 统计执行时间
+~~~
+ StopWatch watch = new StopWatch();
+  watch.start(); 
+  //待统计执行方法
+  watch.stop();
+  System.err.println(watch.getTotalTimeMillis());
+~~~
