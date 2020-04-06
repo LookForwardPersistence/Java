@@ -262,6 +262,47 @@ public static InvokeResult sendImageMsg(String uri,String filePath,String fileNa
         builder.addBinaryBody("file", stream);
         return builder.build();
     }
+    
+    
+    /**
+    *  Header动态变化的Post请求
+    * @param headers
+    * @param url 请求服务
+    * @param json body 参数
+    * @return sendBodyPost
+    * @author Dawn
+    * @date 2020/4/6
+    */
+    public static String sendBodyPost(HashMap<String,String>headers, String url, String json) throws Exception {
+        CloseableHttpClient httpClient=null;
+        CloseableHttpResponse response = null;
+        String result=null;
+        try{
+            httpClient= HttpClients.createDefault();
+            HttpPost post = new HttpPost(url);
+            //多个header 赋值
+            for (Map.Entry<String,String> entry:headers.entrySet()){
+                post.addHeader(entry.getKey(),entry.getValue());
+            }
+
+            StringEntity bodyEntity = new StringEntity(json, Charset.forName("UTF-8"));
+            post.setEntity(bodyEntity);
+            response = httpClient.execute(post);
+            long statusCode = response.getStatusLine().getStatusCode();
+            if(SUCCESS_CODE==statusCode){
+                HttpEntity entity= response.getEntity();
+                result = EntityUtils.toString(entity,"UTF-8");
+            }else {
+                throw new Exception("post执行不成功，返回状态码："+statusCode);
+            }
+        }catch (Exception ex){
+            throw ex;
+        }finally {
+            response.close();
+            httpClient.close();
+        }
+        return result;
+    }
 ~~~
 
 ### InvokeResult
