@@ -171,3 +171,44 @@ public static void main(String[] args) throws InterruptedException {
   watch.stop();
   System.err.println(watch.getTotalTimeMillis());
 ~~~
+- 异步执行
+~~~
+
+-----------------全局变量--------------------------------
+ ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
+            .setNameFormat("tchat-message-pool-%d").build();
+    ExecutorService pool = new ThreadPoolExecutor(5, 200,0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+            
+ --------------业务代码---------------------
+   //异步执行日志记录
+     pool.execute(new executeSaveLog(bodyCommand.getCid(),result.getMsg(),command));
+ 
+ --------------执行类--------------------
+    class executeSaveLog implements Runnable{
+
+        private String cid;
+        private String msg;
+        private TChatMessageCommand command;
+
+        public executeSaveLog() {
+        }
+
+        public executeSaveLog(String cid, String msg, TChatMessageCommand command) {
+            this.cid = cid;
+            this.msg = msg;
+            this.command = command;
+        }
+
+        @Override
+        public void run() {
+            try{
+                //保存消息记录
+                saveMessageLog(cid,msg,command);
+                //通知消息系统管理员 todo
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+~~~
