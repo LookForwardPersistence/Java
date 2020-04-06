@@ -153,3 +153,8 @@ public static void main(String[] args) throws InterruptedException {
        return isSurvive;
    }
 ~~~
+- json 字符串转对象
+~~~
+     Gson gson = new Gson();
+     gson.fromJson(jsonString,clasz)
+~~~
