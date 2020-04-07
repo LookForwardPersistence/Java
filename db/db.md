@@ -16,6 +16,11 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 ~~~
 - oracle
 ~~~
+<dependency>
+    <groupId>com.oracle</groupId>
+    <artifactId>ojdbc7</artifactId>
+    <version>12.1.0.2</version>
+</dependency>
 spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
 spring.datasource.url=jdbc:oracle:thin:@ ip:1521:dbname
 spring.datasource.username=r
