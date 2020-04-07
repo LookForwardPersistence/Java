@@ -1,5 +1,10 @@
 - mysql
 ~~~
+  <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.12</version>
+  </dependency>
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://ip:3306/name?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
 spring.datasource.username=r
