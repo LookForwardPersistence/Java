@@ -16,7 +16,19 @@
 git push --set-upstream origin 分支名
 
 ~~~
-
+- 本地合并分支
+~~~
+#切换到需要合并目标分支（如切换到master 合并dev分支）
+git checkout master
+#拉取最新分支代码
+git pull origin master
+#合并dev分支
+git merge dev
+#查看是否有冲突 有则解决冲突
+git status
+# 没有冲突即可提交
+git push origin master
+~~~
 ### 下载指定git项目的文件
 - 点击进入需要下载的文件目录，拷贝网页的链接地址
 ~~~
