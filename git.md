@@ -113,3 +113,17 @@ git reset --hard commitId
 撤销add
 git reset HEAD
 ~~~
+- Check out, review, and merge locally
+~~~
+Step 1. Fetch and check out the branch for this merge request
+
+git fetch origin
+git checkout -b master origin/master
+Step 2. Review the changes locally
+
+Step 3. Merge the branch and fix any conflicts that come up
+git checkout prd
+git merge --no-ff master
+Step 4. Push the result of the merge to GitLab
+git push origin prd
+~~~
