@@ -32,7 +32,7 @@ netstat -ef|grep 端口
 [root@EABOMMST bin]# ln -s -f /usr/java/jdk1.8.0_111/jre/bin/java
 [root@EABOMMST bin]# ln -s -f /usr/java/jdk1.8.0_111/bin/javac
 
-linux 生成key ：ssh-keygen -t rsa -C fanqianghua@tcl.com
+linux 生成key ：ssh-keygen -t rsa -C 11@111.11
 
 秘钥路径：/root/.ssh
 
