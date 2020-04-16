@@ -242,3 +242,144 @@ public class ShiroConfiguration {
     }
 }
 ~~~
+
+
+~~~
+@ConfigurationProperties(prefix = "shiro")
+public class ShiroProperties {
+
+    /**
+     * 是否开启ldap
+     */
+    Boolean openLdap;
+    /**
+     * 是否开启cas
+     */
+    Boolean openCas;
+    /**
+     * ldap地址
+     */
+    String ldapUrl;
+    /**
+     * ldap用户名
+     */
+    String ldapSystemUsername;
+    /**
+     * ldap密码
+     */
+    String ldapSystemPassword;
+    /**
+     * cas地址
+     */
+    String casUrl;
+    /**
+     * 本地web地址
+     */
+    String appUrl;
+    /**
+     * cas过滤链配置
+     */
+    String chainDefinitions;
+
+    /**
+     * 跨域的源地址
+     */
+    String originAddress;
+    /**
+     * 是否支持跨域开关
+     */
+    String webCors;
+    /**
+     * session失效时间
+     */
+    Long sessionTimeout;
+
+    public Boolean getOpenLdap() {
+        return openLdap;
+    }
+
+    public void setOpenLdap(Boolean openLdap) {
+        this.openLdap = openLdap;
+    }
+
+    public Boolean getOpenCas() {
+        return openCas;
+    }
+
+    public void setOpenCas(Boolean openCas) {
+        this.openCas = openCas;
+    }
+
+    public String getCasUrl() {
+        return casUrl;
+    }
+
+    public void setCasUrl(String casUrl) {
+        this.casUrl = casUrl;
+    }
+
+    public String getAppUrl() {
+        return appUrl;
+    }
+
+    public void setAppUrl(String appUrl) {
+        this.appUrl = appUrl;
+    }
+
+    public String getLdapUrl() {
+        return ldapUrl;
+    }
+
+    public void setLdapUrl(String ldapUrl) {
+        this.ldapUrl = ldapUrl;
+    }
+
+    public String getLdapSystemUsername() {
+        return ldapSystemUsername;
+    }
+
+    public void setLdapSystemUsername(String ldapSystemUsername) {
+        this.ldapSystemUsername = ldapSystemUsername;
+    }
+
+    public String getLdapSystemPassword() {
+        return ldapSystemPassword;
+    }
+
+    public void setLdapSystemPassword(String ldapSystemPassword) {
+        this.ldapSystemPassword = ldapSystemPassword;
+    }
+
+    public String getChainDefinitions() {
+        return chainDefinitions;
+    }
+
+    public void setChainDefinitions(String chainDefinitions) {
+        this.chainDefinitions = chainDefinitions;
+    }
+
+    public String getOriginAddress() {
+        return originAddress;
+    }
+
+    public void setOriginAddress(String originAddress) {
+        this.originAddress = originAddress;
+    }
+
+    public String getWebCors() {
+        return webCors;
+    }
+
+    public void setWebCors(String webCors) {
+        this.webCors = webCors;
+    }
+
+    public Long getSessionTimeout() {
+        return sessionTimeout;
+    }
+
+    public void setSessionTimeout(Long sessionTimeout) {
+        this.sessionTimeout = sessionTimeout;
+    }
+}
+~~~
