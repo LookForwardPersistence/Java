@@ -118,3 +118,70 @@ public class LocationCustomCasRealm extends CasRealm implements RoleHandle {
     }
 }
 ~~~
+
+~~~
+public class LocationShiroPrincipalsAssembler implements PrincipalsAssembler {
+
+    @Inject
+    private EmployeeAccessFacade employeeAccessFacade;
+    @Inject
+    private SsoAccessFacade ssoAccessFacade;
+    @Inject
+    private UserAccessFacade userAccessFacade;
+
+
+    public LocationShiroPrincipalsAssembler() {
+    }
+
+    @Override
+    public Collection createPrincipalCollection(String userAccount) {
+        UserWithOrgDTO user = this.userAccessFacade.findUserByAccount(userAccount);
+        // 重构支持现场员访问
+        if(user==null){
+            EmployeeDTO employeeDTO = employeeAccessFacade.getEmployeeByEmployeeCode(userAccount);
+            user = new UserWithOrgDTO(employeeDTO.getId(),employeeDTO.getName(),employeeDTO.getEmpCode(),employeeDTO.getEmpCode(),employeeDTO.getEmail());
+        }
+        String userType = "0";
+
+
+        if("0".equals(userType)) {
+            ShiroUser shiroUser = this.getShiroUser(user.getId(), user.getUserAccount(), user.getName(), userType, this.getRoleNameByUserAccount(userAccount), user.getEmail());
+            return CollectionUtils.asList(new Object[]{shiroUser});
+        } else if("1".equals(userType)) {
+            ShiroVendor shiroVendor = this.getShiroVendor(user.getId(), user.getUserAccount(), user.getName(), userType, user.getUserCode(), this.getRoleNameByUserAccount(userAccount));
+            return CollectionUtils.asList(new Object[]{shiroVendor});
+        } else {
+            return null;
+        }
+    }
+
+    public ShiroUser getShiroUser(String userId, String userAccount, String userName, String userType, String roleName, String email) {
+        ShiroUser shiroUser = null;
+        EmployeeDTO employee = this.getEmployee(userAccount);
+        String companyCode = employee.getCompanyCode();
+        if(!StringUtils.isEmpty(companyCode)) {
+            CompanyDTO company = this.ssoAccessFacade.getCompanyByCompanycode(companyCode);
+            shiroUser = new ShiroUser(userId, userAccount, userName, employee.getEmpCode(), employee.getOrganizationId(), employee.getOrganizationName(), roleName, company.getId(), company.getCode(), company.getName(), userType, employee.getCompanyCode(), email, employee.getCompanySubCode());
+        } else {
+            shiroUser = new ShiroUser(userId, userAccount, userName, employee.getEmpCode(), employee.getOrganizationId(), employee.getOrganizationName(), roleName, userType, employee.getCompanyCode(), email, employee.getCompanySubCode());
+        }
+
+        return shiroUser;
+    }
+
+    public ShiroVendor getShiroVendor(String userId, String userAccount, String userName, String userType, String userCode, String roleName) {
+        ShiroVendor shiroVendor = new ShiroVendor(userId, userAccount, userName, userCode, roleName, userType);
+        return shiroVendor;
+    }
+
+    public EmployeeDTO getEmployee(String userAccount) {
+        EmployeeDTO employeeDTO = this.employeeAccessFacade.getEmployeeByAccount(userAccount);
+        EmployeeDTO result = employeeDTO==null?employeeAccessFacade.getEmployeeByEmployeeCode(userAccount):employeeDTO;
+        return result;
+    }
+
+    public String getRoleNameByUserAccount(String userAccount) {
+        return "暂未分配角色";
+    }
+}
+~~~
