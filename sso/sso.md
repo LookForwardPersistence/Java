@@ -185,3 +185,50 @@ public class LocationShiroPrincipalsAssembler implements PrincipalsAssembler {
     }
 }
 ~~~
+
+
+~~~
+/**
+ * 针对cas未授权统一返回401
+ */
+public class LoginInterceptor extends CustomCasUserFilter {
+    private Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+    @Override
+    public void doFilterInternal(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+        try {
+            boolean isAuthenticated = SecurityUtils.getSubject().isAuthenticated();
+            if(isAuthenticated){
+                super.doFilterInternal(request, response, chain);
+            }else {
+                HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+                String token = httpServletRequest.getParameter("token");
+                String sessionId = httpServletRequest.getParameter("sessionId");
+                if(!token.isEmpty()) {
+                    String casLoginUrl = this.getCasLoginUrl();
+                    String ticket = HttpUtils.getTicketBySSOToken(casLoginUrl, token, null);
+                    SecurityUtils.getSubject().login(new CasToken(ticket));
+                    // 封装请求，防止字节流只能读取一次
+                    ShiroHttpServletRequestWrapper wrapper = new ShiroHttpServletRequestWrapper(httpServletRequest);
+                    if(CurrentUser.getPrincipals()!=null){
+                        chain.doFilter(wrapper,response);
+                    }else {
+                        ((HttpServletResponse) response).setHeader("Content-type", "text/html;charset=UTF-8");
+                        response.getWriter().write(new Gson().toJson(InvokeResult.failure("401")));
+                        logger.error("授权失败");
+                    }
+                }else {
+                    super.doFilterInternal(request,response,chain);
+                }
+            }
+        }catch (Exception ex){
+            ((HttpServletResponse) response).setHeader("Content-type", "text/html;charset=UTF-8");
+           if(ex.getMessage()!=null&&ex.getMessage().contains("Authentication")){
+               response.getWriter().write(new Gson().toJson(InvokeResult.failure("401")));
+           }else {
+               response.getWriter().write(new Gson().toJson(InvokeResult.failure(ex.getMessage())));
+           }
+        }
+    }
+
+}
+~~~
