@@ -232,3 +232,51 @@ public class LoginInterceptor extends CustomCasUserFilter {
 
 }
 ~~~
+
+
+~~~
+#yml配置可以支持list、map等集合数据
+
+shiro:
+  openJwt: true
+  #是否开放jpql#
+  openJpql: true
+  #是否开启cas
+  openCas: false
+  #是否开启ldap
+  openLdap: true
+  #ldap配置
+  ldapUrl: ldap://ldaptest.com:13222
+  ldapSystemUsername: uid=tongyiacltest,ou=Application,ou=People,o=baidu.com,o=isp11
+  ldapSystemPassword: 123456
+  #cas单点登录配置
+  appUrl: http://localhost:8080
+  casUrl: http://stest.com
+  originAddress: http://localhost:8082
+
+  #是否开启跨域支持
+  webCors: true
+  #session失效时间，单位毫秒
+  sessionTimeout: ${spring.redis.cluster.timeout}
+  #cas过滤路径配置
+  chainDefinitions:
+    /login/**=anon
+    /main/**=anon
+    /heartbeat=anon
+    /unauthorized=anon
+    /swagger-ui.html=anon
+    /swagger-resources/**=anon
+    /v2/api-docs/**=anon
+    /webjars/springfox-swagger-ui/**=anon
+    /swagger/**=anon
+    /swagger-dubbo/**=anon
+    /uploadSwaggerApi=anon
+    /user/**=anon
+    /message/**=anon
+    /appoint/**=anon
+    /others/**=anon
+    /captcha/**=anon
+    /logout=logout
+    /cas=cas
+    /**=user
+~~~
