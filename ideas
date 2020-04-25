@@ -11,3 +11,10 @@ $params$
  
  groovyScript("def result=''; def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList(); for(i = 0; i < params.size(); i++) {result+=' * @param ' + params[i] + ((i < params.size() - 1) ? '\\n':'')}; return result", methodParameters())
 ~~~
+
+-- 设置上下回退前进快捷键
+~~~
+File=>setting->Menu and ToolBar->选中Toolbar Run Actions ，点击添加+ ->在弹出框中Main Menu->Navicate中ctrl同时选中前进和后退，点击确定 
+
+即可在idea通过 ctrl+alt+上下快捷键
+~~~
