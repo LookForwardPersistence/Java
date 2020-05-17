@@ -1,0 +1,53 @@
+~~~
+引入maven依赖
+<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz</artifactId>
+    <version>2.2.3</version>
+</dependency>
+
+JobDetail 实现自己需要的业务
+public class DawnJobDetail implements Job {
+    static  String[] pattern={"yyyy","yyyy-MM","yyyy-MM-dd","yyyy-MM-dd HH","yyyy-MM-dd HH:mm","yyyy-MM-dd HH:mm:ss"};
+    static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        JobDetail jobDetail = jobExecutionContext.getJobDetail();
+        Map map = jobDetail.getJobDataMap();
+        System.err.println("map="+map.get("user"));
+        String dateStr="2019";
+        try {
+            Date date= DateUtils.parseDate(dateStr,pattern);
+            System.err.println("Date"+date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        System.err.println("当前时间："+simpleDateFormat.format(new Date())+"执行定时任务！！！");
+    }
+}
+
+定义Scheduler 、trigger及绑定jobDetail及trigger到Scheduler,同时启动定时任务
+public static void main(String[] args) throws SchedulerException, InterruptedException {
+    // 通过实例scheduler工厂，通过工厂获取scheduler实例
+    SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+    Scheduler scheduler= schedulerFactory.getScheduler();
+    
+    //定义trigger触发器
+    Trigger trigger = TriggerBuilder.newTrigger().withIdentity("dawnTrigger","Dawn")
+            .withSchedule(CronScheduleBuilder.cronSchedule("*/5 * * * * ?")).build();
+    
+    //Job实例
+    JobDetail jobDetail = JobBuilder.newJob(DawnJobDetail.class).withIdentity("dawnTriggerDetail","dawn")
+            .usingJobData("user","CronSchedule").build();
+    //绑定job、触发器到scheduler
+    scheduler.scheduleJob(jobDetail,trigger);
+    //启动定时任务
+    scheduler.start();
+    Thread.sleep(2000000);
+    scheduler.shutdown();
+}
+
+
+
+~~~
