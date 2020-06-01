@@ -1,3 +1,8 @@
+### gitlab 配置
+~~~
+ssh-keygen -t rsa -C '账号'   （回车）
+~~~
+
 ### git安装配置
 ~~~
 配置：git config --globle user.name='' 
