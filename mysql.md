@@ -1,3 +1,8 @@
+### 国内下载
+~~~
+http://mirrors.sohu.com/mysql/MySQL-8.0/
+~~~
+
 ### 批量drop table（mysql）
 ~~~
 SELECT concat('DROP TABLE IF EXISTS `', table_name, '`;')
