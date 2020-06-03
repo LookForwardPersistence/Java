@@ -349,6 +349,7 @@ run方法：普通方法，还是主线程执行
 ThreadLocalRandom.current().nextInt(总量数);
 ~~~
 ~~~
+JSONObject jsonObject = new JSONObject(content.toString())
   // 过滤
         List<Meata> rootMeata= meataList.stream().filter(a->a.getParentCode().equals("")).collect(Collectors.toList());
         
