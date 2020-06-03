@@ -348,3 +348,11 @@ run方法：普通方法，还是主线程执行
 ~~~
 ThreadLocalRandom.current().nextInt(总量数);
 ~~~
+~~~
+  // 过滤
+        List<Meata> rootMeata= meataList.stream().filter(a->a.getParentCode().equals("")).collect(Collectors.toList());
+        
+        //对象属性去重复
+        Set<Meata> singleMeata = new TreeSet<>((o1,o2)->o1.getCode().compareTo(o2.getCode()));
+        singleMeata.addAll(rootMeata);
+~~~
